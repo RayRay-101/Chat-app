@@ -1,0 +1,33 @@
+.profile-card{
+    height: fit-content;
+    width: 150px;
+    background-color: whitesmoke;
+    border-color: darkgrey;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+.profile-card-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+.profile-card-avator, img{
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.profile-card-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+
+}

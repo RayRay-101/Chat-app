@@ -1,0 +1,11 @@
+.header-bar{
+    background-color: white;
+    margin: 0;
+    width: auto;
+    height: 50px;
+}
+.header-bar  img{
+    height: 30px;
+    width: 30px;
+    margin: 10px;
+}
