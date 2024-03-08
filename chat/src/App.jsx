@@ -7,9 +7,7 @@ function App() {
   return (
     <>
     <Header />
-    <Contact />
-    <Chat />
-    <Profile />
+    <Contact /><Chat /><Profile />
     </>
   )
 }

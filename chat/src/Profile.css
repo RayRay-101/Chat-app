@@ -11,6 +11,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    font-family: arial,sans-serif;
+
 }
 .profile-card-avator, img{
     height: 65px;
@@ -29,5 +31,6 @@
     margin-top: 10px;
     margin-bottom: 10px;
     background-color: white;
+    font-family: arial,sans-serif;
 
 }
