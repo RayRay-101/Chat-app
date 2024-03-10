@@ -18,7 +18,7 @@ function Contact(){
             <h2>Contacts</h2>
             <ul>
                 {contacts.map(contacts => (
-                    <><li key={contacts.id}>{contacts.image}{contacts.name}</li><hr /></>
+                    <><li key={contacts.id}>{contacts.name}</li><hr /></>
                     ))}
             </ul>
        

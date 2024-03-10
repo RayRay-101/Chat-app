@@ -1,27 +1,37 @@
-
 import './Chat.css'
+import { useState } from 'react'
+import MessageList from './MessageList'
+import MessageInput from './MessageInput'
 
 function Chat(){
+
+    const [messages, setMessages] = useState([])
+
+    
+
+    const addMessages = (message) => {
+        setMessages([...messages, {text: message, sender: "user"}])
+    }
+
     return(
-        <div className="chat-container">
-            <div className="chat-header">
-                <h2>CHAT</h2>
-            </div>
-            <div className="chat-messages">
-                <div className="chat-message-received">
-                    <h3>Hi</h3>
-                </div>
-                <div className="chat-message-sent">
-                    <h3>Hello</h3>
-                </div>
-            </div>
+        
+         <div className="chat-container">
 
-            <div className="chat-input">
-                <input type="text" placeholder="Type a message..."/>
-                <button>Send</button>
-            </div>
+<       MessageList messages={messages} />
+        <MessageInput addMessages={addMessages} />
 
-        </div>
+             {/* <div className="chat-header">
+                 <h2>//profile pic and name</h2>
+             </div>
+             <div className="chat-messages">
+                 <div className="chat-message-received">
+                     <h3>Hi</h3>
+                 </div>
+                 <div className="chat-message-sent">
+                     <h3>Hello</h3>
+                 </div>
+             </div> */}
+             </div>
     )
 }
 export default Chat
