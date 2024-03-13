@@ -1,0 +1,10 @@
+.receiver {
+  margin-left: auto;
+  background-color: red !important;
+}
+
+.message {
+  background-color: blue;
+  width: max-content;
+  max-width: 500px;
+}

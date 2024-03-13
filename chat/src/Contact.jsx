@@ -16,11 +16,11 @@ function Contact(){
     return(
         <div className="contacts">
             <h2>Contacts</h2>
-            <ul>
+            <div className='recentChats'>
                 {contacts.map(contacts => (
-                    <><li key={contacts.id}>{contacts.name}</li><hr /></>
+                    <><div key={contacts.id}>{contacts.name}</div><hr /></>
                     ))}
-            </ul>
+            </div>
        
         </div>
     )
