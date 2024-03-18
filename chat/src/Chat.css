@@ -17,35 +17,7 @@
     max-height: 400px;
     overflow-y: auto;
 }
-.chat-message-received h3{
-    text-align: left;
-    background-color: darkgray;
-    color: white;
-    width: fit-content;
-    height:fit-content;
-    padding: 10px;
-    border-radius: 10px 2px;
-    margin: 10px;
-    margin-right: auto;
-    font-family: arial,sans-serif;
-    font-size: 16px;
-    font-weight: bold;
 
-}
-.chat-message-sent h3{
-    text-align: right;
-    background-color: lightgreen;
-    color: white;
-    width: fit-content;
-    height:fit-content;
-    padding: 10px;
-    border-radius: 2px 10px;
-    margin: 10px;
-    margin-left: auto;
-    font-family: arial,sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-}
 .chat-input{
     display: flex;
     align-items: center;

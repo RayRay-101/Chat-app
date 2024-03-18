@@ -1,6 +1,6 @@
 import "./App.css";
 
-import Header from "./Header";
+import Header from "./Header"
 import Contact from "./Contact";
 import Chat from "./Chat";
 import Profile from "./Profile";

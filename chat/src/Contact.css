@@ -1,5 +1,5 @@
 .contacts{
-    background-color: blanchedalmond;
+    background-color: rgb(24, 34, 29);
   
     width: 25%;
     display: flex;
@@ -19,6 +19,7 @@
     padding: 10px;
     flex-direction: column;
     font-family: arial,sans-serif;
+    color: white;
     
 }
 

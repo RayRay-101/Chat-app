@@ -7,7 +7,7 @@ function MessageList({ messages }) {
         <div
           key={index}
           className={`${styles.message} ${
-            !message.isSender ? styles.receiver : ""
+          !message.isSender ? styles.receiver : ""
           }`}
         >
           <p>{message.text}</p>
