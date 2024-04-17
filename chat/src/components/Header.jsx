@@ -1,4 +1,4 @@
-import './Header.css'
+import '../styles/Header.module.css'
 import WhatsappLogo from '/whatsapp.png'
 
 function Header(){

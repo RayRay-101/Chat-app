@@ -5,8 +5,8 @@ const initialState = {
     contacts: [],// Array of contact objects
 }
 
-const ContactSlice = createSlice({
-    name: 'contacts',
+export const ContactSlice = createSlice({
+    name: 'contact',
     initialState,
     reducers: {
         selectedContact: (state, action) => {

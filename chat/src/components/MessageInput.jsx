@@ -1,3 +1,5 @@
+import '../styles/MessageInput.module.css'
+
 import { useState } from "react";
 
 function MessageInput({ addMessages }) {

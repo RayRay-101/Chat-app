@@ -1,4 +1,4 @@
-import styles from "./styles/MessageCard.module.css";
+import styles from "../styles/MessageCard.module.css";
 
 function MessageList({ messages }) {
   return (

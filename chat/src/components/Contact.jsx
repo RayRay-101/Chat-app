@@ -1,4 +1,4 @@
-import './Contact.css'
+import '../styles/Contact.module.css'
 
 function Contact(){
 
@@ -6,12 +6,14 @@ function Contact(){
         {id: 1, name: 'Pill'},
         {id: 2, name: 'Man'},
         {id: 3, name: 'Boy'},
-        {id: 4, name: 'Kid'}
+        {id: 4, name: 'Kid'},
     ]
     
     return(
-        <div className="contacts">
+        
+        <div className="contacts">P
             <h2>Contacts</h2>
+            
             <div className='recentChats'>
                 {contacts.map(contacts => (
                     <><div key={contacts.id}>{contacts.name}</div><hr /></>

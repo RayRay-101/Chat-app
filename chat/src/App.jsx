@@ -1,9 +1,9 @@
 import "./App.css";
 
-import Header from "./Header"
-import Contact from "./Contact";
-import Chat from "./Chat";
-import Profile from "./Profile";
+import Header from "./components/Header"
+import Contact from "./components/Contact";
+import Chat from "./components/Chat";
+import Profile from "./components/Profile";
 
 function App() {
   return (

@@ -1,6 +1,6 @@
-import './Chat.css'
+import '../styles/Chat.module.css'
 import { useState } from "react";
-import MessageList from "./MessageList";
+import MessageCard from "./MessageCard";
 import MessageInput from "./MessageInput";
 
 function Chat() {
@@ -15,7 +15,7 @@ function Chat() {
 
   return (
     <div className="chat-container">
-      <MessageList messages={messages} />
+      <MessageCard messages={messages} />
       <MessageInput addMessages={addMessages} />
 
     
