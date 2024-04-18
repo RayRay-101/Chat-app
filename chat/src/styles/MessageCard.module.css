@@ -1,11 +1,14 @@
 .receiver {
   margin-left: auto;
   background-color: rgba(0, 231, 0, 0.447) !important;
-  
+  border-radius: 4px;
+
 }
 
 .message {
   background-color: rgba(128, 128, 128, 0.391);
   width: max-content;
   max-width: 500px;
+  border-radius: 4px;
+  
 }

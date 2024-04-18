@@ -1,4 +1,4 @@
-import '../styles/MessageInput.module.css'
+import styles from '../styles/MessageInput.module.css'
 
 import { useState } from "react";
 
@@ -18,15 +18,15 @@ function MessageInput({ addMessages }) {
   };
 
   return (
-    <div className="chat-input">
-      <form>
+    <div className={styles.chat__input}>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Type a message..."
           value={inputValue}
           onChange={handleInput}
         />
-        <button onClick={handleSubmit} type="submit">
+        <button type="submit">
           Send
         </button>
       </form>

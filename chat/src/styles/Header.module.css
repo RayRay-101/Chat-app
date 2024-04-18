@@ -1,4 +1,4 @@
-.header-bar{
+.header__bar{
     background-color: white;
     margin: 0;
     width: 100%;
@@ -6,7 +6,7 @@
     position: fixed;
    
 }
-.header-bar  img{
+.header__bar  img{
     height: 30px;
     width: 30px;
     margin: 10px;

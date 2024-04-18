@@ -1,25 +1,25 @@
-import '../styles/Profile.module.css'
+import styles from '../styles/Profile.module.css'
 import Profile1 from "../assets/profile1.jpg"
 
 function Profile(){
 
     return(
-    <div className="profile-card">
-        <div className="profile-card-header">
-            <div className="profile-card-avatar">
+    <div className={styles.profile__card}>
+        <div className={styles.profile__card__header}>
+            <div className={styles.profile__car__avatar}>
                 <img src={Profile1} alt="avatar" />
             </div>
-            <div className="profile-card-name">
+            <div className={styles.profile__card__name}>
                 <h3>User</h3><hr />
                                 
             </div>
         </div>
-        <div className="profile-card-body">
+        <div className={styles.profile__card__body}>
                <p>Phone and status</p>
-            <div className="profile-card-info-phone-number">
+            <div className={styles.profile__card__info__phone__number}>
                 <p>+233 232 443540</p>
             </div>
-            <div className="profile-card-info-status">
+            <div className={styles.profile__card__info__status}>
                 <p>Let's chat.</p>
             </div>
   

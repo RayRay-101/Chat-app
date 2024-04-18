@@ -1,9 +1,9 @@
-import '../styles/Header.module.css'
+import styles from '../styles/Header.module.css'
 import WhatsappLogo from '/whatsapp.png'
 
 function Header(){
     return(
-        <div className="header-bar">
+        <div className={styles.header__bar}>
             <img src={WhatsappLogo} alt="whatsapp logo" />
         </div>
     )

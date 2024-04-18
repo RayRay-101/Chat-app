@@ -1,31 +1,18 @@
-.contacts{
-    background-color: rgb(24, 34, 29);
-  
+.contact__list {
     width: 25%;
-    display: flex;
-    flex-direction: column;
+    background-color: white;
     border-color: darkgrey;
     border: 1px solid rgba(0, 0, 0, 0.3);
-    font-family: arial,sans-serif;
-    padding-left: 8px;
-}
-.recentChats{
     display: flex;
+    align-items: center;
     flex-direction: column;
-    /* justify-content: start; */
-}
-.recentChats {
-    list-style-type: none;
-    padding: 10px;
-    flex-direction: column;
-    font-family: arial,sans-serif;
-    color: white;
-    
 }
 
-.recentChats hr{
-    background-color: rgb(145, 145, 156);
-border: 0;
-height: 1px;
-width: 100%;
+.contact__list li {
+    list-style-type: none;
+
+}
+.contact__list hr {
+    width: 100%;
+    
 }

@@ -1,27 +1,25 @@
-import '../styles/Contact.module.css'
+import styles from '../styles/Contact.module.css'
 
-function Contact(){
+import React from 'react';
 
-    const contacts = [
-        {id: 1, name: 'Pill'},
-        {id: 2, name: 'Man'},
-        {id: 3, name: 'Boy'},
-        {id: 4, name: 'Kid'},
-    ]
-    
-    return(
-        
-        <div className="contacts">P
-            <h2>Contacts</h2>
-            
-            <div className='recentChats'>
-                {contacts.map(contacts => (
-                    <><div key={contacts.id}>{contacts.name}</div><hr /></>
-                    ))}
-            </div>
-       
-        </div>
-    )
+function Contact() {
+  const contacts = [
+    { id: 1, name: 'Pill' },
+    { id: 2, name: 'Man' },
+    { id: 3, name: 'Boy' },
+    { id: 4, name: 'Kid' },
+  ];
 
+  return (
+    <div className={styles.contact__list}>
+      {contacts.map(contact => (
+        <><li key={contact.id}>
+          {contact.name}
+        </li>
+          <hr /></>
+      ))}
+    </div>
+  );
 }
-export default Contact
+
+export default Contact;
