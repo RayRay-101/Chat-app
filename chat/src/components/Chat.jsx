@@ -18,7 +18,6 @@ function Chat() {
       <MessageCard messages={messages} />
       <MessageInput addMessages={addMessages} />
 
-    
     </div>
   );
 }

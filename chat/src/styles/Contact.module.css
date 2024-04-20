@@ -1,16 +1,28 @@
 .contact__list {
     width: 25%;
-    background-color: white;
-    border-color: darkgrey;
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: rgb(21, 31, 31);
+    border-color: rgba(20, 57, 42, 0.617);
+    border: 1px solid rgba(15, 15, 15, 0);
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
-.contact__list li {
-    list-style-type: none;
+.contact__list li:hover {
+    cursor: pointer;
+}
 
+.contact__list li {
+    display: flex;
+    align-items:flex-end;
+    list-style-type: none;
+    color: white;
+    
+}
+
+.contact__list img {
+    height: 23px;
+    width: 25px;
 }
 .contact__list hr {
     width: 100%;

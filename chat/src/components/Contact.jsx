@@ -1,6 +1,7 @@
 import styles from '../styles/Contact.module.css'
-
 import React from 'react';
+import Profile2 from "../assets/profile1.jpg"
+
 
 function Contact() {
   const contacts = [
@@ -14,6 +15,7 @@ function Contact() {
     <div className={styles.contact__list}>
       {contacts.map(contact => (
         <><li key={contact.id}>
+          <img src={Profile2}  />
           {contact.name}
         </li>
           <hr /></>
