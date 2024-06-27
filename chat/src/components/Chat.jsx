@@ -1,16 +1,18 @@
 import styles from '../styles/Chat.module.css'
-import { useState } from "react";
 import MessageCard from "./MessageCard";
 import MessageInput from "./MessageInput";
 
+import { useSelector,useDispatch } from 'react-redux';
+import { addMessage } from '../app/features/chat/chatSlice';
+
+
 function Chat() {
-  const [messages, setMessages] = useState([
-    { text: 'Hi', isSender: true },
-    { text: 'Yoo man', isSender: false }
-  ]);
+
+  const messages = useSelector((state) => state.chat.messages)
+  const  dispatch = useDispatch()
 
   const addMessages = (message) => {
-    setMessages([...messages, { text: message, sender: "user" }]);
+    dispatch(addMessage(message))
   };
 
   return (

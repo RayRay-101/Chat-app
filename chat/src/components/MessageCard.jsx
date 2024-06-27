@@ -1,16 +1,15 @@
+
 import styles from "../styles/MessageCard.module.css";
 
 function MessageList({ messages }) {
   return (
-    <div className={styles.message__list}>
-      {messages.map((message, index) => (
+    <div className={styles}>
+      {messages.map((msg, index) => (
         <div
           key={index}
-          className={` ${styles.message} ${
-          !message.isSender ? styles.receiver : ""
-          }`}
+          className={` ${styles.msg} `}
         >
-          <p>{message.text}</p>
+          {msg}
         </div>
       ))}
     </div>
