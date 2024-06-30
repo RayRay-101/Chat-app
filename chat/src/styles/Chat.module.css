@@ -5,16 +5,3 @@
     border-color: darkgray;
     border: 1px solid rgba(0, 0, 0, 0.3);
 } 
-.chat__header{
-    width: 100%;
-    height: 10%;
-    margin-top: -19px;
-    background-color: navajowhite;
-    color: seagreen;
-    text-align: center;
-}
-.chat__messages{
-    max-height: 400px;
-    overflow-y: auto;
-}
-

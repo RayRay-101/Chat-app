@@ -1,8 +1,9 @@
 import "./App.css";
 
+import UserProfile from './components/UserProfile';
 
 import Header from "./components/Header"
-import Contact from "./components/Contact";
+import ContactList from "./components/ContactList";
 import Chat from "./components/Chat";
 import Profile from "./components/Profile";
 
@@ -12,10 +13,11 @@ function App() {
     <>
       <Header />
       <div className="layout">
-        <Contact />
+        <ContactList />
         <Chat />
         <Profile />
       </div>
+      <UserProfile />
     </>
   );
 }

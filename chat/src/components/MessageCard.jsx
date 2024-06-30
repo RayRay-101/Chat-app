@@ -1,17 +1,13 @@
 
+import { selectContact } from "../app/features/user/userSlice";
 import styles from "../styles/MessageCard.module.css";
 
 function MessageList({ messages }) {
   return (
-    <div className={styles}>
-      {messages.map((msg, index) => (
-        <div
-          key={index}
-          className={` ${styles.msg} `}
-        >
-          {msg}
-        </div>
-      ))}
+    <div className="messages">
+      <div className={styles}>
+       
+      </div>
     </div>
   );
 }
