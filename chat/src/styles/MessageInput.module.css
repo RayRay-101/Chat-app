@@ -1,34 +1,75 @@
-.chat__input{
+.chat__input {
     display: flex;
-    align-items: center;
-    width: 100%;
-    position: absolute;
-    bottom: 0%;
-    height: 50px;
-}
-/* 
-.chat__input form{
-    display: flex;
-    align-items: center;
-    width: 100%;
-   
+    flex-direction: column;
     height: 100%;
-} */
-
-.chat__input input {
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .chat__input h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .chat__input ul {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .chat__input ul li {
+    list-style-type: none;
+  }
+  
+  .msg {
+    background-color: rgba(4, 92, 29, 0.391);
+    width: fit-content;
+    max-width: 300px;
+    border-radius: 4px;
+    margin: 5px 0;
+    padding: 10px;
+  }
+  
+  .chat__input form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    margin-left: -20px;
+    position: absolute;
+    bottom: 0;
+    background: #fff;
+    border-top: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+  box-sizing: border-box;
+  }
+  
+  .chat__input form input {
     flex: 1;
     padding: 10px;
-    font-family: arial,sans-serif;
-    border: none;   
-    box-sizing: border-box; 
+    font-family: Arial, sans-serif;
+    border: none;
+    box-sizing: border-box;
     outline-width: 0;
-}
-.chat__input button{
-    color: green;
-    background-color:honeydew;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  
+  .chat__input button {
+    color: white;
+    background-color: rgba(20, 57, 42, 0.617);
     padding: 10px;
-    font-family: arial,sans-serif;
+    font-family: Arial, sans-serif;
     border: none;
     cursor: pointer;
-    transition: ease-in 2s;
-}
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+  

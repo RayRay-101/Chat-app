@@ -30,14 +30,13 @@ function ContactList() {
     <div className={styles.contact__list}>
       <ul>
         {contacts.map((contact) => (
-          <><li 
+          <li 
             key={contact.id}
             onClick={() => handleContactClick(contact)}
             style={{cursor:'pointer', fontWeight: selectedContact?.id === contact.id ? 'bold' : 'normal'}}>
             <img src={contact.picture} style={{ width: '25px', height: '25px', borderRadius: '50%', marginRight: '10px',marginBottom:'-5px' }} />  
             {contact.name}
           </li>
-        <hr /></>
           
         ))}
       </ul>
