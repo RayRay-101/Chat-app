@@ -1,6 +1,7 @@
 .chat__container{
     position: relative;
-    background-color: white;
+    overflow-y: scroll;
+    background-color:gainsboro;
     width: 50%;
     border-color: darkgray;
     border: 1px solid rgba(0, 0, 0, 0.3);

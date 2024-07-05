@@ -36,10 +36,13 @@ function MessageInput() {
   };
 
   return (
+    <>
+      <div className={styles.chat__status}>
+      <p>{selectedContact.name} ...is typing</p>
+      </div>
     <div className={styles.chat__input}>
       {selectedContact ? (
         <div>
-        <h2>Chat with {selectedContact.name}</h2>
       <ul>
           {messages
           .filter((msg) => 
@@ -56,7 +59,7 @@ function MessageInput() {
         </ul>
         <form onSubmit={handleSubmit}>
           <input
-            type="text"
+            type="search"
             placeholder="Type your message..."
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
@@ -68,6 +71,7 @@ function MessageInput() {
         <p>Please select a Chat</p>
       )}
       </div>
+      </>
   );
 }
 export default MessageInput;

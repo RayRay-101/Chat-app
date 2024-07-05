@@ -18,12 +18,16 @@ function Profile(){
 
     return(
     <div className={styles.profile__card}>
+        <div className={styles.profile__car__bar}>
+            <img src={selectedProfile.picture} />  
+            <p>{selectedProfile.name}</p>
+        </div>
         <div className={styles.profile__card__header}>
             <div className={styles.profile__card__avatar}>
             <img src={selectedProfile.picture} />  
             </div>
             <div className={styles.profile__card__name}>
-                <h3>{selectedProfile.name}</h3><hr />
+                <h3>{selectedProfile.name}</h3>
                                 
             </div>
         </div>

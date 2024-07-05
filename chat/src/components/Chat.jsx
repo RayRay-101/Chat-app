@@ -4,9 +4,6 @@ import MessageInput from "./MessageInput";
 
 function Chat() {
 
-  
- 
-
   return (
     <div className={styles.chat__container}>
       

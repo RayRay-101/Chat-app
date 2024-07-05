@@ -11,10 +11,10 @@ import profile5 from '../assets/profile5.jpg';
 
 function ContactList() {
   const contacts = [
-    { id: 1, name: 'Pill', phoneNumber: '123-456-7890',picture: profile1 },
-    { id: 2, name: 'Man', phoneNumber: '234-567-8901',picture: profile2 },
-    { id: 3, name: 'Boy', phoneNumber: '345-678-9012',picture: profile4 },
-    { id: 4, name: 'Kid', phoneNumber: '765-978-9002',picture: profile5 },
+    { id: 1, name: 'Mark Zuckerberg', phoneNumber: '123-456-7890',picture: profile1 },
+    { id: 2, name: 'Ray Charles', phoneNumber: '234-567-8901',picture: profile2 },
+    { id: 3, name: 'Elon Musk', phoneNumber: '345-678-9012',picture: profile4 },
+    { id: 4, name: 'Chris Brown', phoneNumber: '765-978-9002',picture: profile5 },
   ];
 
   const dispatch = useDispatch()
@@ -27,19 +27,24 @@ function ContactList() {
 
 
   return (
-    <div className={styles.contact__list}>
-      <ul>
-        {contacts.map((contact) => (
-          <li 
-            key={contact.id}
-            onClick={() => handleContactClick(contact)}
-            style={{cursor:'pointer', fontWeight: selectedContact?.id === contact.id ? 'bold' : 'normal'}}>
-            <img src={contact.picture} style={{ width: '25px', height: '25px', borderRadius: '50%', marginRight: '10px',marginBottom:'-5px' }} />  
-            {contact.name}
-          </li>
-          
-        ))}
-      </ul>
+      <div className={styles.contact__list}>
+      <div className={styles.contact__search}>
+        <input type="text" placeholder='Search' />
+      </div>
+      <div className={styles.list}>
+        <ul>
+          {contacts.map((contact) => (
+            <li 
+              key={contact.id}
+              onClick={() => handleContactClick(contact)}
+              style={{cursor:'pointer', fontWeight: selectedContact?.id === contact.id ? 'bold' : 'normal'}}>
+              <img src={contact.picture} />  
+              {contact.name}
+            </li>
+            
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
