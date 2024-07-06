@@ -1,4 +1,5 @@
 import styles from '../styles/MessageInput.module.css'
+
 import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { addMessage } from '../app/features/chat/chatSlice';
@@ -35,10 +36,17 @@ function MessageInput() {
     }
   };
 
+  const formatTime = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  };
+
   return (
     <>
       <div className={styles.chat__status}>
-      <p>{selectedContact.name} ...is typing</p>
+        <p>{`${selectedContact?.name || ''}  ...is typing`}</p>
+        <span>⭐</span>
+        <span><img src="call.png" alt="call button" /></span>
       </div>
     <div className={styles.chat__input}>
       {selectedContact ? (
@@ -51,10 +59,16 @@ function MessageInput() {
           .map((msg, index) => (
             <li
               key={index}
-              className={` ${styles.msg} `}
-            >
-              {msg.content} {/* {msg.sender}:  ({new Date(msg.timestamp).toLocaleTimeString()}) */}
-            </li>
+              className={` ${styles.msg} `}>
+                    <div className={styles.messageContent}>
+                      {msg.content}
+                    </div>
+                    <div className={styles.messageHeader}>
+                          <img src={selectedContact.picture} alt="Profile" className={styles.profilePicture} />
+                          <span className={styles.messageTime}>{formatTime(msg.timestamp)}</span>
+                      </div>
+                  
+              </li>
         ))}
         </ul>
         <form onSubmit={handleSubmit}>
@@ -64,7 +78,9 @@ function MessageInput() {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <button type="submit">Send</button>
+          <button type="submit">
+          <img src="send.png" alt="send" />
+          </button>
         </form>
         </div>
       ):(

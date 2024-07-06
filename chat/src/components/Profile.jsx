@@ -18,7 +18,7 @@ function Profile(){
 
     return(
     <div className={styles.profile__card}>
-        <div className={styles.profile__car__bar}>
+        <div className={styles.profile__card__bar}>
             <img src={selectedProfile.picture} />  
             <p>{selectedProfile.name}</p>
         </div>
