@@ -51,12 +51,27 @@ router.patch('/:id', getContact, async (req, res) => {
 });
 
 // DELETE a contact
+// router.delete('/:id', getContact, async (req, res) => {
+//   try {
+//     await res.contact.remove();
+//     res.status(200).send({ message: 'Contact deleted successfully' });
+//   } catch (error) {
+//     res.status(500).send({ message: 'Internal server error' });
+//   }
+// });
+
 router.delete('/:id', getContact, async (req, res) => {
   try {
-    await res.contact.remove();
-    res.status(200).send({ message: 'Contact deleted successfully' });
-  } catch (error) {
-    res.status(500).send({ message: 'Internal server error' });
+    console.log(`Attempting to delete contact with ID: ${req.params.id}`);
+    const contact = await Contact.findByIdAndDelete(req.params.id);
+    if (!contact) {
+      console.error('Contact not found');
+      return res.status(404).json({ message: 'Contact not found' });
+    }
+    res.status(200).json({ message: 'Contact deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting contact:', err);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 

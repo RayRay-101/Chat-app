@@ -10,7 +10,8 @@ const app = express()
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: '*',
+    origin: "http://localhost:3000", // Adjust based on your frontend URL
+    methods: ["GET", "POST"]
   }
 });
 
@@ -36,6 +37,10 @@ io.on('connection', (socket) => {
     await message.save()
     io.emit('receivemessage', message)
   })
+
+  socket.on('typing', (data) => {
+    socket.broadcast.emit('typing', data);
+  });
 
   socket.on('disconnect', () => {
     console.log('user disconnected')
