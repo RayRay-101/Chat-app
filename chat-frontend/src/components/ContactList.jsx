@@ -53,7 +53,7 @@ function ContactList() {
         console.error('Error deleting contact:', error);
       }
     }
-  };
+  }
 
   return (
     <div className={styles.contact__list}>

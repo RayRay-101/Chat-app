@@ -1,28 +1,37 @@
 import styles from '../styles/MessageInput.module.css';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { addMessage } from '../app/features/chat/chatSlice';
-import io from 'socket.io-client'
+import io from 'socket.io-client';
 
 const socket = io('http://localhost:5000');
 
-function MessageInput({own}) {
+function MessageInput() {
   const [inputValue, setInputValue] = useState("");
+  const [isTyping, setIsTyping] = useState(false); // State to track typing status
   const messages = useSelector((state) => state.chat.messages);
   const currentUser = useSelector((state) => state.user.currentUser);
   const selectedContact = useSelector((state) => state.user.selectedContact);
   const dispatch = useDispatch();
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
     socket.on('receivemessage', (message) => {
       dispatch(addMessage(message));
     });
 
+    socket.on('typing', (data) => {
+      if (data.sender === selectedContact.name) {
+        setIsTyping(true);
+        setTimeout(() => setIsTyping(false), 2000); // Hide typing indicator after 2 seconds of inactivity
+      }
+    });
+
     return () => {
       socket.off('receivemessage');
+      socket.off('typing');
     };
-    }, [dispatch]);
-
+  }, [dispatch, selectedContact]);
 
   const handleSendMessage = () => {
     if (!selectedContact || !currentUser) {
@@ -38,12 +47,13 @@ function MessageInput({own}) {
     };
     
     socket.emit('sendMessage', message);
-    // dispatch(addMessage(message));
-    setInputValue('')
+    setInputValue('');
+    socket.emit('typing', { sender: currentUser.name, typing: false }); // Emit typing false when message is sent
   };
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
+    socket.emit('typing', { sender: currentUser.name, typing: true }); // Emit typing true when input changes
   };
 
   const handleSubmit = (e) => {
@@ -58,10 +68,22 @@ function MessageInput({own}) {
     return date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
   };
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <>
       <div className={styles.chat__status}>
-        <p>{selectedContact ? `${selectedContact.name} is typing...` : ''}</p>
+        {isTyping ? (
+          <p className={styles.typingIndicator}>selectedContact ? "typing..."</p>
+        ) : (
+          <p><img src="default-image.png" alt="status" /></p> // Display default image when not typing
+        )}
         <span>⭐</span>
         <span><img src="call.png" alt="call button" /></span>
       </div>
@@ -76,20 +98,36 @@ function MessageInput({own}) {
                 .map((msg, index) => (
                   <li
                     key={index}
-                    className={` ${styles.msg} `}>
-                    <div className={styles.messageContent}>
-                      {msg.content}
-                    </div>
-                    <div className={styles.messageHeader}>
-                      <img src={selectedContact.picture} alt="Profile" className={styles.profilePicture} />
-                      <span className={styles.messageTime}>{formatTime(msg.timestamp)}</span>
-                    </div>
+                    className={`${styles.msg} ${msg.sender === currentUser.name ? styles.sent : styles.received}`}
+                  >
+                    {msg.sender === currentUser.name ? (
+                      <>
+                        <div className={styles.messageContent}>
+                          {msg.content}
+                        </div>
+                        <div className={styles.messageHeader}>
+                          <img src={currentUser.picture} alt="Profile" className={styles.profilePicture} />
+                          <span className={styles.messageTime}>{formatTime(msg.timestamp)}</span>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className={styles.messageHeader}>
+                          <img src={selectedContact.picture} alt="Profile" className={styles.profilePicture} />
+                          <span className={styles.messageTime}>{formatTime(msg.timestamp)}</span>
+                        </div>
+                        <div className={styles.messageContent}>
+                          {msg.content}
+                        </div>
+                      </>
+                    )}
                   </li>
                 ))}
+              <div ref={messagesEndRef} />
             </ul>
             <form onSubmit={handleSubmit}>
               <input
-                type="search"
+                type="text"
                 placeholder="Type your message..."
                 value={inputValue}
                 onChange={handleInputChange}

@@ -13,7 +13,7 @@
     justify-content: flex-end;
     align-items: flex-end;
     overflow-x: hidden;
-    
+    margin: 0px;
   }
   
   
@@ -21,6 +21,23 @@
     list-style-type: none;
     display: flex;
     padding: 5px;
+  }
+  .typing-indicator {
+    color: grey;
+    font-style: italic;
+  }
+  
+  .received .messageContent {
+    background-color: white; /* Different color for received messages */
+    color: black;
+    margin-left: px;
+  }
+  .received .messageHeader {
+    margin-left: -40px;
+  }
+  
+  .received {
+    align-self: flex-start;
   }
   
   
