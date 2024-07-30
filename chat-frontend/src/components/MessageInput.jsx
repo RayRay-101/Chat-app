@@ -8,7 +8,7 @@ const socket = io('http://localhost:5000');
 
 function MessageInput() {
   const [inputValue, setInputValue] = useState("");
-  const [isTyping, setIsTyping] = useState(false); // State to track typing status
+  const [isTyping, setIsTyping] = useState(false);
   const messages = useSelector((state) => state.chat.messages);
   const currentUser = useSelector((state) => state.user.currentUser);
   const selectedContact = useSelector((state) => state.user.selectedContact);
@@ -23,7 +23,7 @@ function MessageInput() {
     socket.on('typing', (data) => {
       if (data.sender === selectedContact.name) {
         setIsTyping(true);
-        setTimeout(() => setIsTyping(false), 2000); // Hide typing indicator after 2 seconds of inactivity
+        setTimeout(() => setIsTyping(false), 2000);
       }
     });
 
@@ -45,16 +45,16 @@ function MessageInput() {
       receiver: selectedContact.name,
       timestamp: new Date().toISOString(),
     };
-    
+
     socket.emit('sendMessage', message);
     setInputValue('');
-    socket.emit('typing', { sender: currentUser.name, typing: false }); // Emit typing false when message is sent
+    socket.emit('typing', { sender: currentUser.name, typing: false });
   };
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
-    socket.emit('typing', { sender: currentUser.name, typing: true }); // Emit typing true when input changes
-  };
+    
+  }  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -80,9 +80,9 @@ function MessageInput() {
     <>
       <div className={styles.chat__status}>
         {isTyping ? (
-          <p className={styles.typingIndicator}>selectedContact ? "typing..."</p>
+          <p className={styles.typingIndicator}>   typing...</p>
         ) : (
-          <p><img src="default-image.png" alt="status" /></p> // Display default image when not typing
+          <p><img src={currentUser.picture} alt="Profile" className={styles.profilePicture} /></p>
         )}
         <span>⭐</span>
         <span><img src="call.png" alt="call button" /></span>
