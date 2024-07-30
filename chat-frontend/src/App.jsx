@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import UserProfile from './components/UserProfile';
+import Login from './components/Login';
 import ContactList from "./components/ContactList";
 import Chat from "./components/Chat";
 import Profile from "./components/Profile";
@@ -15,8 +15,8 @@ function App() {
       <div >
         <Routes>
           <Route
-            path="/userprofile"
-            element={<UserProfile />}
+            path="/login"
+            element={<Login />}
           />
           <Route
             path="/chat"
@@ -27,10 +27,10 @@ function App() {
                   <Profile />
               </div>
             ) : (
-              <Navigate to="/userprofile" />
+              <Navigate to="/login" />
             )}
           />
-          <Route path="*" element={<Navigate to="/userprofile" />} />
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </div>
     </Router>

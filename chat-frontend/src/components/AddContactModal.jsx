@@ -5,15 +5,30 @@ import styles from '../styles/AddContact.module.css';
 function AddContactModal({ onClose, onAdd }) {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [picture, setPicture] = useState('');
+  const [profilePicture, setProfilePicture] = useState(null);
+
+  const handleFileChange = (e) => {
+    setProfilePicture(e.target.files[0]);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const newContact = { name, phoneNumber, picture };
-      const response = await axios.post('http://localhost:5000/api/contacts', newContact);
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('phoneNumber', phoneNumber);
+      if (profilePicture) {
+        formData.append('profilePicture', profilePicture);
+      }
+
+      const response = await axios.post('http://localhost:5000/api/contacts', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
       onAdd(response.data);
-      onClose(); // Close the modal after adding a contact
+      onClose();
     } catch (error) {
       console.error('Error adding contact:', error);
     }
@@ -38,12 +53,7 @@ function AddContactModal({ onClose, onAdd }) {
             onChange={(e) => setPhoneNumber(e.target.value)}
             required
           />
-          <input
-            type="text"
-            placeholder="Picture URL"
-            value={picture}
-            onChange={(e) => setPicture(e.target.value)}
-          />
+          <input type="file" onChange={handleFileChange} />
           <button type="submit">Add Contact</button>
         </form>
       </div>

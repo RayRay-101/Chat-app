@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUser, clearUser } from '../app/features/user/userSlice';
 import {useNavigate} from 'react-router-dom'
-import styles from '../styles/UserProfile.module.css'
+import styles from '../styles/Login.module.css'
 
-function UserProfile () {
+function Login () {
   const [username, setUsername] = useState('')
+  const [phone, setPhone] = useState('')
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -46,10 +47,19 @@ function UserProfile () {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className={styles.loginInput} />
-            <button 
+             <input
+        type="text"
+        placeholder="Phone Number"
+        value={phone}
+        onChange={(e) => setPhone(e.target.value)}
+        className={styles.loginInput}
+        required
+      />
+          
+          <button 
             type='submit'
             onClick={handleLogin}
-            className={styles.loginButton}>Login</button>
+            className={styles.loginButton}>Enter</button>
           </form>
         </div>
       )}
@@ -57,4 +67,4 @@ function UserProfile () {
   );
 };
 
-export default UserProfile;
+export default Login;

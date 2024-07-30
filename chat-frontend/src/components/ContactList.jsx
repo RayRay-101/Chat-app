@@ -83,7 +83,7 @@ function ContactList() {
               onClick={() => handleContactClick(contact)}
               style={{ cursor: 'pointer', fontWeight: selectedContact?._id === contact._id ? 'bold' : 'normal' }}
             >
-              <img src={contact.picture} alt={contact.name} />  
+              <img src={`http://localhost:5000${contact.picture}`} alt="Profile" className={styles.profilePicture} />
               <span className={styles.name}>{contact.name}</span>
               <span onClick={(e) => { 
                   e.stopPropagation(); // Prevent triggering handleContactClick

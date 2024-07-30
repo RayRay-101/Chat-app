@@ -1,7 +1,20 @@
-// routes/contact.js
 const express = require('express');
+const multer = require('multer');
+const path = require('path');
 const router = express.Router();
 const Contact = require('../models/Contact');
+
+// Multer setup
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // Destination folder for uploaded files
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)); // Unique filename
+  }
+});
+
+const upload = multer({ storage: storage });
 
 // GET all contacts
 router.get('/', async (req, res) => {
@@ -18,18 +31,19 @@ router.get('/:id', getContact, (req, res) => {
   res.json(res.contact);
 });
 
-// POST/create a new contact
-router.post('/', async (req, res) => {
-  const contact = new Contact({
-    name: req.body.name,
-    phoneNumber: req.body.phoneNumber
-  });
-
+// POST/create a new contact with file upload
+router.post('/', upload.single('profilePicture'), async (req, res) => {
   try {
-    const newContact = await contact.save();
+    const { name, phoneNumber } = req.body;
+    const picture = req.file ? `/uploads/${req.file.filename}` : '';
+
+    const newContact = new Contact({ name, phoneNumber, picture });
+    await newContact.save();
+
     res.status(201).json(newContact);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+  } catch (error) {
+    console.error('Error adding contact:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 
@@ -41,6 +55,9 @@ router.patch('/:id', getContact, async (req, res) => {
   if (req.body.phoneNumber != null) {
     res.contact.phoneNumber = req.body.phoneNumber;
   }
+  if (req.file) {
+    res.contact.picture = `/uploads/${req.file.filename}`;
+  }
 
   try {
     const updatedContact = await res.contact.save();
@@ -51,21 +68,10 @@ router.patch('/:id', getContact, async (req, res) => {
 });
 
 // DELETE a contact
-// router.delete('/:id', getContact, async (req, res) => {
-//   try {
-//     await res.contact.remove();
-//     res.status(200).send({ message: 'Contact deleted successfully' });
-//   } catch (error) {
-//     res.status(500).send({ message: 'Internal server error' });
-//   }
-// });
-
 router.delete('/:id', getContact, async (req, res) => {
   try {
-    console.log(`Attempting to delete contact with ID: ${req.params.id}`);
     const contact = await Contact.findByIdAndDelete(req.params.id);
     if (!contact) {
-      console.error('Contact not found');
       return res.status(404).json({ message: 'Contact not found' });
     }
     res.status(200).json({ message: 'Contact deleted successfully' });

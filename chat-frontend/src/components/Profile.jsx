@@ -1,7 +1,7 @@
 import styles from '../styles/Profile.module.css'
-import Profile1 from "../assets/profile1.jpg"
 import { useSelector,useDispatch } from 'react-redux'
 import { clearProfile } from '../app/features/profile/profileSlice'
+
 
 function Profile(){
 
@@ -19,8 +19,8 @@ function Profile(){
     return(
     <div className={styles.profile__card}>
         <div className={styles.profile__card__bar}>
-            <img src={selectedProfile.picture} />  
-            <p>{selectedProfile.name}</p>
+        <img src={`http://localhost:5000${selectedProfile.picture}`} alt="Profile" className={styles.profilePicture} />
+        <p>{selectedProfile.name}</p>
         </div>
         <div className={styles.profile__card__header}>
             <div className={styles.profile__card__avatar}>

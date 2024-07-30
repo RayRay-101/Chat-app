@@ -2,15 +2,17 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
+const path = require('path');
 const connectDB = require('./config/db');
 const Message = require('./models/Message');
+const User = require('./models/User'); 
+const Contact = require('./models/Contact'); 
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    // origin: '*',
-    origin: 'http://localhost:5173', // Update this to match your frontend's origin
+    origin: 'http://localhost:5173',
     methods: ['GET', 'POST'],
   }
 });
@@ -19,6 +21,7 @@ connectDB();
 
 app.use(express.json());
 app.use(cors());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve static files from uploads folder
 
 app.use('/api/contacts', require('./routes/contact'));
 app.use('/api/messages', require('./routes/message'));
@@ -42,7 +45,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('typing', (data) => {
-    socket.broadcast.emit('typing', data);
+    socket.emit.emit('typing', data);
   });
 
   socket.on('disconnect', () => {

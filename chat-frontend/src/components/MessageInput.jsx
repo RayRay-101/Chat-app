@@ -1,8 +1,9 @@
 import styles from '../styles/MessageInput.module.css';
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { addMessage } from '../app/features/chat/chatSlice';
+import { addMessage, setMessages } from '../app/features/chat/chatSlice'; // Ensure setMessages is defined
 import io from 'socket.io-client';
+import axios from 'axios';
 
 const socket = io('http://localhost:5000');
 
@@ -16,12 +17,22 @@ function MessageInput() {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
+    if (selectedContact && currentUser) {
+      axios.get(`http://localhost:5000/api/messages/${currentUser.name}/${selectedContact.name}`)
+        .then(response => {
+          dispatch(setMessages(response.data));
+        })
+        .catch(error => console.error('Error fetching messages:', error));
+    }
+  }, [selectedContact, currentUser, dispatch]);
+
+  useEffect(() => {
     socket.on('receivemessage', (message) => {
       dispatch(addMessage(message));
     });
 
     socket.on('typing', (data) => {
-      if (data.sender === selectedContact.name) {
+      if (data.sender === selectedContact?.name) {
         setIsTyping(true);
         setTimeout(() => setIsTyping(false), 2000);
       }
@@ -53,8 +64,7 @@ function MessageInput() {
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
-    
-  }  
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -80,9 +90,13 @@ function MessageInput() {
     <>
       <div className={styles.chat__status}>
         {isTyping ? (
-          <p className={styles.typingIndicator}>   typing...</p>
+          <p className={styles.typingIndicator}>typing...</p>
         ) : (
-          <p><img src={currentUser.picture} alt="Profile" className={styles.profilePicture} /></p>
+          selectedContact && (
+            <p>
+              <img src={`http://localhost:5000${selectedContact.picture}`} alt="Profile" className={styles.profilePicture} />
+            </p>
+          )
         )}
         <span>⭐</span>
         <span><img src="call.png" alt="call button" /></span>
@@ -106,14 +120,14 @@ function MessageInput() {
                           {msg.content}
                         </div>
                         <div className={styles.messageHeader}>
-                          <img src={currentUser.picture} alt="Profile" className={styles.profilePicture} />
+                          <img src={`http://localhost:5000${currentUser.picture}`} alt="Profile" className={styles.profilePicture} />
                           <span className={styles.messageTime}>{formatTime(msg.timestamp)}</span>
                         </div>
                       </>
                     ) : (
                       <>
                         <div className={styles.messageHeader}>
-                          <img src={selectedContact.picture} alt="Profile" className={styles.profilePicture} />
+                          <img src={`http://localhost:5000${selectedContact.picture}`} alt="Profile" className={styles.profilePicture} />
                           <span className={styles.messageTime}>{formatTime(msg.timestamp)}</span>
                         </div>
                         <div className={styles.messageContent}>
