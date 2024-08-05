@@ -1,5 +1,6 @@
 .modal {
-    display: flex;
+  display: flex;
+  flex-direction: column;
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -14,11 +15,16 @@
   }
   
   .modalContent {
+    
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+  }
+
+  button {
+    background-color: green;
   }
   
   .closeButton {

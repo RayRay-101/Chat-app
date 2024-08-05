@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import io from 'socket.io-client'
 
 const chatSlice = createSlice({
     name: 'chat',

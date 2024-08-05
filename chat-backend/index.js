@@ -21,7 +21,7 @@ connectDB();
 
 app.use(express.json());
 app.use(cors());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve static files from uploads folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/api/contacts', require('./routes/contact'));
 app.use('/api/messages', require('./routes/message'));
@@ -38,14 +38,14 @@ io.on('connection', (socket) => {
     try {
       const message = new Message(messageData);
       await message.save();
-      io.emit('receivemessage', message);
+      socket.broadcast.emit('receivemessage', message);
     } catch (error) {
       console.error('Error saving message:', error);
     }
   });
 
   socket.on('typing', (data) => {
-    socket.emit.emit('typing', data);
+    socket.broadcast.emit('typing', data);
   });
 
   socket.on('disconnect', () => {

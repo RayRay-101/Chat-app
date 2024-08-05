@@ -15,13 +15,16 @@ function MessageInput() {
   const selectedContact = useSelector((state) => state.user.selectedContact);
   const dispatch = useDispatch();
   const messagesEndRef = useRef(null);
+  const typingTimeoutRef = useRef(null);
 
   useEffect(() => {
     if (selectedContact && currentUser) {
       axios.get(`http://localhost:5000/api/messages/${currentUser.name}/${selectedContact.name}`)
         .then(response => {
-          dispatch(setMessages(response.data));
+          const sortedMessages = response.data.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+          dispatch(setMessages(sortedMessages));
         })
+        
         .catch(error => console.error('Error fetching messages:', error));
     }
   }, [selectedContact, currentUser, dispatch]);
@@ -29,12 +32,16 @@ function MessageInput() {
   useEffect(() => {
     socket.on('receivemessage', (message) => {
       dispatch(addMessage(message));
+      scrollToBottom();   
     });
 
     socket.on('typing', (data) => {
       if (data.sender === selectedContact?.name) {
         setIsTyping(true);
-        setTimeout(() => setIsTyping(false), 2000);
+        if (typingTimeoutRef.current) {
+          clearTimeout(typingTimeoutRef.current);
+        }
+        typingTimeoutRef.current = setTimeout(() => setIsTyping(false), 2000);
       }
     });
 
@@ -51,12 +58,15 @@ function MessageInput() {
     }
 
     const message = {
+      id: `${Date.now()}-${Math.random()}`,
       content: inputValue,
       sender: currentUser.name,
       receiver: selectedContact.name,
       timestamp: new Date().toISOString(),
     };
 
+    console.log('Sending message:', message);
+    // dispatch(addMessage(message));
     socket.emit('sendMessage', message);
     setInputValue('');
     socket.emit('typing', { sender: currentUser.name, typing: false });
@@ -64,6 +74,7 @@ function MessageInput() {
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
+    socket.emit('typing', { sender: currentUser.name, typing: true });
   };
 
   const handleSubmit = (e) => {
