@@ -38,6 +38,11 @@ io.on('connection', (socket) => {
     try {
       const message = new Message(messageData);
       await message.save();
+
+      // Emit the message to the sender
+      socket.emit('receivemessage', message);
+      
+      // Broadcast the message to all other clients
       socket.broadcast.emit('receivemessage', message);
     } catch (error) {
       console.error('Error saving message:', error);

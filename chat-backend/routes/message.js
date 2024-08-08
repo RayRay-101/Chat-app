@@ -1,32 +1,10 @@
 const router = require('express').Router()
-const Message = require('../models/Message')
+const messageController = require('../controllers/messageController')
 
-router.get('/:sender/:receiver', async (req, res) => {
-    try {
-      const { sender, receiver } = req.params;
-      const messages = await Message.find({
-        $or: [
-          { sender, receiver },
-          { sender: receiver, receiver: sender }
-        ]
-      }).sort({ timestamp: -1 }); // Sort by timestamp descending
-  
-      res.json(messages);
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
-  });
+// GET all messages between two users
+router.get('/:sender/:receiver', messageController.getMessagesBtnUsers);
 
-
-router.post('/', async (req, res) => {
-    try {
-        const newMessage = new Message(req.body)
-        await newMessage.save()
-        res.status(201).send(newMessage)
-    } catch (error) {
-        res.status(400).send(error)
-    }
-
-})
+// POST a new message
+router.post('/', messageController.createMessage)
 
 module.exports = router
