@@ -28,12 +28,11 @@
   }
   
   .received .messageContent {
-    background-color: white; /* Different color for received messages */
+    background-color: white; 
     color: black;
-    margin-left: px;
   }
   .received .messageHeader {
-    margin-left: -40px;
+    margin-left: -45px;
   }
   
   .received {
@@ -42,9 +41,9 @@
   
   
   .messageContent {
-    background-color: rgb(38, 138, 138);
+    background-color: lightseagreen;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Helvetica;
     width: fit-content;
       max-width: 200px;
       max-height: 400px;
@@ -63,10 +62,10 @@
 }
 
 .profilePicture {
-  height: 30px;
-  width: 30px;
+  height: 33px;
+  width: 33px;
   border-radius: 50%;
-  margin-right: 10px;
+  margin: 10px;
 }
 
 .messageTime {
@@ -118,31 +117,28 @@
     position: sticky;
     top: 0;
     width: 100%;
-    height: 6%;
+    height: 5.9%;
     background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px;
+    padding: 10px;
     box-sizing: border-box;
     border-bottom: 1px solid #ccc;
-    z-index: 100;
   }
-  .chat__status p {
+  .chat__status .chat__profile {
     color: black;
     font-size: 20px;
     font-weight: 100;
-    margin: 10px;
-    
-  }
-  .chat__status span {
+    margin-left: 0px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
   }
+  
   .chat__status span img {
-    height: 20px;
-    width: 20px;
-    margin-top: 3px;
-    margin-left: 20px;
+    height: 22px;
+    width: 22px;
   }
+
+  

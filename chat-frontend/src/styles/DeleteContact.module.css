@@ -53,15 +53,9 @@
     border-radius: 5px;
   }
   
-  .button:hover {
-    background-color: #45a049;
-  }
-  
+
   .button:last-child {
-    background-color: #f44336; /* Red */
+    background-color: #f44336; 
   }
   
-  .button:last-child:hover {
-    background-color: #e03131;
-  }
   

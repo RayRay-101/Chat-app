@@ -4,7 +4,7 @@ import { clearProfile } from '../app/features/profile/profileSlice'
 
 
 function Profile(){
-
+    const currentUser = useSelector((state) => state.user.currentUser);
     const selectedProfile = useSelector((state) => state.profile.selectedProfile)
     const dispatch = useDispatch()
 
@@ -19,15 +19,16 @@ function Profile(){
     return(
     <div className={styles.profile__card}>
         <div className={styles.profile__card__bar}>
-        <img src={`http://localhost:5000${selectedProfile.picture}`} alt="Profile" className={styles.profilePicture} />
-        <p>{selectedProfile.name}</p>
+            {/* <img src={`http://localhost:5000${selectedProfile.picture}`} alt="Profile" className={styles.profilePicture} /> */}
+            <p>User: {currentUser.name}</p>
         </div>
         <div className={styles.profile__card__header}>
             <div className={styles.profile__card__avatar}>
-            <img src={selectedProfile.picture} />  
+            <img src={`http://localhost:5000${selectedProfile.picture}`} alt="Profile" className={styles.profilePicture} />  
             </div>
             <div className={styles.profile__card__name}>
                 <h3>{selectedProfile.name}</h3>
+                <h5>online</h5>
                                 
             </div>
         </div>
@@ -37,7 +38,7 @@ function Profile(){
                 <p>{selectedProfile.phoneNumber}</p>
             </div>
             <div className={styles.profile__card__info__status}>
-                <p>online</p>
+                <p>Let's explore more</p>
             </div>
   
         </div>

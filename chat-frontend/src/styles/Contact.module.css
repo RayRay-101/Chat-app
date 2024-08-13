@@ -1,6 +1,6 @@
 .contact__list {
-  width: 25%;
-  background-color: rgb(21, 31, 31);
+  width: 20%;
+  background-color: #1e2930;
   border-color: rgba(41, 109, 82, 0.617);
   border: 1px solid rgba(15, 15, 15, 0);
   display: flex;
@@ -15,98 +15,129 @@
   height: 6%;
   border-bottom: 1px solid gainsboro;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     box-sizing: border-box;
     position: sticky;
     top: 0;
 }
 .contact__search input {
-  flex-grow: 1;
+  width: 50%;
+  flex-grow: 0.8;
   margin: 2px;
   border: none;
   outline: none;
   padding: 10px;
-  border-radius: 10px;  
-  opacity: 0.2;
+  border-radius: 20px;  
+  opacity: 0.8;
 }
+
+
+.search__input {
+  width: 100%;
+  padding: 10px 15px; 
+  padding-left: 40px; 
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.1); 
+  color: white; 
+  box-sizing: border-box;
+}
+
+.search__icon {
+  position: absolute;
+  top: 50%;
+  left: 20px; 
+  transform: translateY(-50%);
+  pointer-events: none; 
+}
+
+.search__icon img {
+  width: 20px; 
+  height: 20px;
+  margin-right: 5px;
+}
+
+.search__input::placeholder {
+  color: white; 
+  text-align: center;
+}
+
+
 .addButton {
-  background-color: #4CAF50;
+  background-color: teal;
   border: none;
   color: white;
-  padding: 10px 20px;
+  padding: 10px 15px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 12px;
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 50%;
+  opacity: 0.4;
 }
 .list {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  margin-left: -45px;
   width: 100%;
   height: 100%;
 }
 
+.list ul{
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
 .list ul li {
   display: flex;
-  flex-grow: 1;
-
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; 
   list-style-type: none;
+  width: 100%;
   color: white;
-  padding: 10px;
-  font-size: larger;
+  margin: 3px;
+  padding: 5px;
   font-family: sans-serif;
   box-sizing: border-box;
   cursor: pointer;
-  transition: background-color 2s;
+  transition: background-color 0.3s;
+  position: relative;
   }
   .list ul li:hover {
     cursor: pointer;
-    background-color: rgba(6, 125, 115, 0.391);
+    background-color: teal;
   }
   
-  .list ul li img {
+  .list ul li .profilePicture {
     height: 35px; 
     width: 35px;  
-    margin-right: 10px;
     border-radius: 50%;
+    margin-right: 20px;
+    position: relative;
   }
-  .list ul li span {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-    word-wrap: break-word;
+  .list ul li .name {
+    flex-grow: 1; 
+   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+  }
+
+  .list ul li .lastMessage {
+    display: block;
+    color: gray; 
+    font-size: 12px; 
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    font-family: sans-serif;
-    font-size: large;
-    font-family: sans-serif;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-
   }
 
-.list ul li .name {
-  flex-grow: 1;
-  margin-right: 15px;
+.list ul li .ellipses {
+  height: 35px;
+  width: 35px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-}
-.list ul li span img {
- 
-  margin: 2px;
+  justify-content: center;
+  margin-left: 10px; /* Space between name and ellipses */
 }

@@ -66,7 +66,7 @@ function MessageInput() {
     };
 
     console.log('Sending message:', message);
-    // dispatch(addMessage(message));
+    dispatch(addMessage(message));
     socket.emit('sendMessage', message);
     setInputValue('');
     socket.emit('typing', { sender: currentUser.name, typing: false });
@@ -103,10 +103,12 @@ function MessageInput() {
         {isTyping ? (
           <p className={styles.typingIndicator}>typing...</p>
         ) : (
-          selectedContact && (
-            <p>
+          selectedContact && (<>
+            <div className={styles.chat__profile}>
               <img src={`http://localhost:5000${selectedContact.picture}`} alt="Profile" className={styles.profilePicture} />
-            </p>
+              <p>{selectedContact.name}</p>
+            </div>
+            </>
           )
         )}
         <span>⭐</span>

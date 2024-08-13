@@ -58,7 +58,10 @@ function ContactList() {
   return (
     <div className={styles.contact__list}>
       <div className={styles.contact__search}>
-        <input type="text" placeholder='Search' />
+        <input type="text" placeholder='Search' className={styles.search__input} />
+        <span className={styles.search__icon}>
+          <img src="https://img.icons8.com/ios-filled/50/FFFFFF/search.png" alt="Search Icon" />
+        </span>
         <button className={styles.addButton} onClick={() => setShowAddContact(true)}>+</button>
       </div>
       <div className={styles.list}>
@@ -85,14 +88,14 @@ function ContactList() {
             >
               <img src={`http://localhost:5000${contact.picture}`} alt="Profile" className={styles.profilePicture} />
               <span className={styles.name}>{contact.name}</span>
+              <span className={styles.lastMessage}>{contact.lastMessage}</span>
+
               <span onClick={(e) => { 
                   e.stopPropagation(); // Prevent triggering handleContactClick
                   setContactToDelete(contact); 
                   setShowDeleteContact(true); 
                 }}>
                 <img
-                  width="48"
-                  height="48"
                   src="https://img.icons8.com/fluency-systems-filled/48/FFFFFF/ellipsis.png"
                   alt="ellipsis"
                   className={styles.ellipses}
