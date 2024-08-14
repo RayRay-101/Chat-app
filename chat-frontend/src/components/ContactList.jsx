@@ -96,8 +96,7 @@ function ContactList() {
                   setShowDeleteContact(true); 
                 }}>
                 <img
-                  src="https://img.icons8.com/fluency-systems-filled/48/FFFFFF/ellipsis.png"
-                  alt="ellipsis"
+                   src="https://img.icons8.com/material-outlined/24/FFFFFF/more.png" alt="more"
                   className={styles.ellipses}
                 />
               </span>
