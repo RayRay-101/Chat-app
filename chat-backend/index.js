@@ -5,8 +5,6 @@ const cors = require('cors');
 const path = require('path');
 const connectDB = require('./config/db');
 const Message = require('./models/Message');
-const User = require('./models/User'); 
-const Contact = require('./models/Contact'); 
 
 const app = express();
 const server = http.createServer(app);

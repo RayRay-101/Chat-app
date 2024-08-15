@@ -5,7 +5,7 @@ exports.registerUser = async (req, res) => {
     try {
         const { name, phone } = req.body;
         const picture = req.file ? `/uploads/${req.file.filename}` : null;
-        const user = new User({ name, phone, picture });
+        const user = new User({ name, phoneNumber: phone, picture });
         await user.save();
         res.status(201).json(user);
     } catch (error) {
