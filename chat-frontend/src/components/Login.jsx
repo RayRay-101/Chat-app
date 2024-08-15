@@ -3,24 +3,41 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setUser, clearUser } from '../app/features/user/userSlice';
 import {useNavigate} from 'react-router-dom'
 import styles from '../styles/Login.module.css'
+import axios from 'axios';
+
 
 function Login () {
   const [username, setUsername] = useState('')
   const [phone, setPhone] = useState('')
+  const [profilePicture, setProfilePicture] = useState(null);
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
     console.log('Logging in:', username);
     if (username.trim()) {
-    const user = { id: 1, name: username };
+      const formData = new FormData();
+      formData.append('name', username);
+      formData.append('phone', phone);
+      formData.append('picture', profilePicture);
+  
+      try {
+        const response = await axios.post('http://localhost:5000/api/users/register', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+  
+        const user = response.data;
     dispatch(setUser(user));
     navigate('/chat');
-    }
+    } catch (error) {
+      console.error('Error registering user:', error);
   };
-
+    }
+  }
 
   const handleLogout = () => {
     dispatch(clearUser());
@@ -34,6 +51,13 @@ function Login () {
         <div>
           <p>ID: {currentUser.id}</p>
           <p>Name: {currentUser.name}</p>
+          {currentUser.picture && (
+            <img
+              src={currentUser.picture}
+              alt="Profile"
+              className={styles.profilePicture}
+            />
+          )}
           <button onClick={handleLogout}>Logout</button>
 
         </div>
@@ -46,16 +70,23 @@ function Login () {
             placeholder='Enter your name'
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className={styles.loginInput} />
+            className={styles.loginInput} 
+            required
+            />
              <input
-        type="text"
-        placeholder="Phone Number"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-        className={styles.loginInput}
-        required
-      />
-          
+            type="text"
+            placeholder="Phone Number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className={styles.loginInput}
+            required
+          />
+          <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setProfilePicture(e.target.files[0])}
+              className={styles.loginInput}
+            />
           <button 
             type='submit'
             onClick={handleLogin}

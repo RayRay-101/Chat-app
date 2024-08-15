@@ -1,7 +1,7 @@
 .chat__input {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: calc(100% - 50px);
     padding: 20px;
     box-sizing: border-box;
   }
@@ -13,7 +13,9 @@
     justify-content: flex-end;
     align-items: flex-end;
     overflow-x: hidden;
+    overflow-y: auto;
     margin: 0px;
+    padding-bottom: 60px;
   }
   
   
@@ -43,16 +45,46 @@
   .messageContent {
     background-color: lightseagreen;
     color: white;
-    font-family: Helvetica;
+    font-family: Arial, Helvetica, sans-serif;
     width: fit-content;
-      max-width: 200px;
+    height: fit-content;
+      max-width: 250px;
       max-height: 400px;
-      margin: 5px ;
-      padding: 10px;
+      margin: px ;
+      padding: 15px ;
       flex-grow: 1;
       word-wrap: break-word;
       border-radius: 10px;
+      position: relative;
   }
+  
+  
+.received .messageContent::before {
+  content: "";
+  position: absolute;
+  left: -7px; 
+    top: 10px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid white; 
+}
+
+
+.sent .messageContent::after {
+  content: "";
+  position: absolute;
+  right: -7px; /* Positioning the tail on the right for sent messages */
+  top: 10px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 8px solid lightseagreen; /* Match this color to the background-color of the message */
+}
+
+
   .messageHeader {
     display: flex;
   flex-direction: column;
@@ -78,8 +110,9 @@
     bottom: 0;
     display: flex;
     align-items: center;
-    width: 50%;
-    height: 6%;
+    justify-content: center;
+    width: 64.8%;
+    height: 5.9%;
     padding: 10px;
     margin-left: -20px;
     background: #fff;
@@ -104,8 +137,8 @@
     background-color: white;
   }
   .chat__input button img {
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
     color: white;
     border: none;
     margin: 5px;
@@ -117,7 +150,7 @@
     position: sticky;
     top: 0;
     width: 100%;
-    height: 5.9%;
+    height: 6%;
     background-color: white;
     display: flex;
     justify-content: space-between;
@@ -125,6 +158,7 @@
     padding: 10px;
     box-sizing: border-box;
     border-bottom: 1px solid #ccc;
+    z-index: 100;
   }
   .chat__status .chat__profile {
     color: black;
@@ -140,5 +174,53 @@
     height: 22px;
     width: 22px;
   }
-
+  .icon {  
+    height: 35px;  
+    width: 35px;  
+  }
+  
+  .button {  
+    background: transparent;  
+    outline: none;  
+    border: none;  
+  }  
+  .callButtonContainer {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 5px;
+    background-color: #333;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+    min-width: 120px;
+    padding: 10px;
+    display: none;
+  }
+  
+  .dropdownContent {
+    padding: 10px;
+  }
+  
+  .dropdownArrow {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #333;
+  }
+  
+  .showDropdown {
+    display: block;
+  }
   

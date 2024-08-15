@@ -19,8 +19,14 @@ function Profile(){
     return(
     <div className={styles.profile__card}>
         <div className={styles.profile__card__bar}>
-            {/* <img src={`http://localhost:5000${selectedProfile.picture}`} alt="Profile" className={styles.profilePicture} /> */}
-            <p>User: {currentUser.name}</p>
+        {currentUser.picture && (
+                          <img
+                            src={`http://localhost:5000${currentUser.picture}`}
+                            alt="Profile"
+                            className={styles.profilePicture}
+                          />
+                          )}
+            <p> {currentUser.name}</p>
         </div>
         <div className={styles.profile__card__header}>
             <div className={styles.profile__card__avatar}>
