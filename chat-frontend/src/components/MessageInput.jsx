@@ -4,11 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addMessage, setMessages } from '../app/features/chat/chatSlice'; // Ensure setMessages is defined
 import io from 'socket.io-client';
 import axios from 'axios';
+import { Picker } from "emoji-mart";  
 
 const socket = io('http://localhost:5000');
 
 function MessageInput() {
   const [inputValue, setInputValue] = useState("");
+  // const [showEmojis, setShowEmojis] = useState(false);
+  // const [showDropdown, setShowDropdown] = useState(false);  
   const [isTyping, setIsTyping] = useState(false);
   const messages = useSelector((state) => state.chat.messages);
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -66,7 +69,7 @@ function MessageInput() {
     };
 
     console.log('Sending message:', message);
-    dispatch(addMessage(message));
+    // dispatch(addMessage(message));
     socket.emit('sendMessage', message);
     setInputValue('');
     socket.emit('typing', { sender: currentUser.name, typing: false });
@@ -76,6 +79,14 @@ function MessageInput() {
     setInputValue(e.target.value);
     socket.emit('typing', { sender: currentUser.name, typing: true });
   };
+
+  // const addEmoji = (e) => {  
+  //   let sym = e.unified.split("-");  
+  //   let codesArray = [];  
+  //   sym.forEach((el) => codesArray.push("0x" + el));  
+  //   let emoji = String.fromCodePoint(...codesArray);  
+  //   setInputValue(inputValue + emoji.native);  
+  // };  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -112,7 +123,19 @@ function MessageInput() {
           )
         )}
         <span>⭐</span>
-        <span><img src="call.png" alt="call button" /></span>
+        <span className={styles.callButtonContainer}>
+          <img
+            src="call.png"
+            alt="call button"
+            onClick={() => setShowDropdown(true)} // Toggle dropdown visibility
+          />
+          {/* {showDropdown && (
+            <div className={styles.dropdown}>
+              <div className={styles.dropdownContent}>Not Available</div>
+              <div className={styles.dropdownArrow}></div>
+            </div>
+          )} */}
+        </span>     
       </div>
       <div className={styles.chat__input}>
         {selectedContact ? (
@@ -133,7 +156,13 @@ function MessageInput() {
                           {msg.content}
                         </div>
                         <div className={styles.messageHeader}>
-                          <img src={`http://localhost:5000${currentUser.picture}`} alt="Profile" className={styles.profilePicture} />
+                        {currentUser.picture && (
+                          <img
+                            src={`http://localhost:5000${currentUser.picture}`}
+                            alt="Profile"
+                            className={styles.profilePicture}
+                          />
+                          )}
                           <span className={styles.messageTime}>{formatTime(msg.timestamp)}</span>
                         </div>
                       </>
@@ -152,16 +181,42 @@ function MessageInput() {
                 ))}
               <div ref={messagesEndRef} />
             </ul>
+            
             <form onSubmit={handleSubmit}>
+           
               <input
                 type="text"
                 placeholder="Type your message..."
                 value={inputValue}
                 onChange={handleInputChange}
               />
+              <button className={styles.button}
+              type="button"
+              // onClick={() => setShowEmojis(true)}
+              >  
+                <svg  
+                  xmlns="http://www.w3.org/2000/svg"  
+                  className={styles.icon}  
+                  fill="none"  
+                  viewBox="0 0 24 24"  
+                  stroke="currentColor" 
+                >  
+                  <path  
+                    stroke-linecap="round"  
+                    stroke-linejoin="round"  
+                    stroke-width="2"  
+                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"  
+                  />  
+                </svg>  
+              </button>  
               <button type="submit">
                 <img src="send.png" alt="send" />
               </button>
+              {/* {showEmojis && (  
+                <div>  
+                  <Picker onSelect={addEmoji}/>  
+                </div>  
+              )}  */}
             </form>
           </div>
         ) : (
