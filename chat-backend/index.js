@@ -5,6 +5,8 @@ const cors = require('cors');
 const path = require('path');
 const connectDB = require('./config/db');
 const Message = require('./models/Message');
+const Contact = require('./models/Contact');
+
 
 const app = express();
 const server = http.createServer(app);
@@ -36,6 +38,7 @@ io.on('connection', (socket) => {
     try {
       const message = new Message(messageData);
       await message.save();
+
 
       // Emit the message to the sender
       socket.emit('receivemessage', message);

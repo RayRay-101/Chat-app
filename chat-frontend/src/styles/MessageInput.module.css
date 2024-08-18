@@ -135,6 +135,7 @@
   .chat__input button {
     border: none;
     background-color: white;
+    
   }
   .chat__input button img {
     height: 25px;
@@ -185,6 +186,16 @@
     outline: none;  
     border: none;  
   } 
+
+  .emojiPicker {
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+    z-index: 100;
+  }
+  .emoji {
+    font-size: 23px;
+  }  
   
   .callButtonContainer { 
     position: relative;

@@ -53,7 +53,10 @@ function AddContactModal({ onClose, onAdd }) {
             onChange={(e) => setPhoneNumber(e.target.value)}
             required
           />
-          <input type="file" onChange={handleFileChange} />
+          <input type="file" 
+          onChange={handleFileChange}
+          required
+           />
           <button type="submit">Add Contact</button>
         </form>
       </div>

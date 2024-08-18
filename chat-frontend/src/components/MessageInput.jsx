@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addMessage, setMessages } from '../app/features/chat/chatSlice';
 import io from 'socket.io-client';
 import axios from 'axios';
+import Picker from 'emoji-picker-react';
+
 import styles from '../styles/MessageInput.module.css';
 
 const socket = io('http://localhost:5000');
@@ -11,12 +13,14 @@ function MessageInput() {
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const messages = useSelector((state) => state.chat.messages);
   const currentUser = useSelector((state) => state.user.currentUser);
   const selectedContact = useSelector((state) => state.user.selectedContact);
   const dispatch = useDispatch();
   const messagesEndRef = useRef(null);
   const typingTimeoutRef = useRef(null);
+  const emojiPickerRef = useRef(null);
 
   useEffect(() => {
     if (selectedContact && currentUser) {
@@ -50,6 +54,28 @@ function MessageInput() {
       socket.off('typing');
     };
   }, [dispatch, selectedContact]);
+
+
+
+  useEffect(() => {
+    // Handle click outside of emoji picker to close it
+    const handleClickOutside = (event) => {
+      if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target)) {
+        setShowEmojiPicker(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleEmojiClick = (emojiObject) => {
+    setInputValue(inputValue + emojiObject.emoji);
+    setShowEmojiPicker(false);
+  };
+  
 
   const handleSendMessage = () => {
     if (!selectedContact || !currentUser) {
@@ -174,22 +200,15 @@ function MessageInput() {
                 value={inputValue}
                 onChange={handleInputChange}
               />
-              <button className={styles.button} type="button">
-                <svg  
-                  xmlns="http://www.w3.org/2000/svg"  
-                  className={styles.icon}  
-                  fill="none"  
-                  viewBox="0 0 24 24"  
-                  stroke="currentColor" 
-                >  
-                  <path  
-                    strokeLinecap="round"  
-                    strokeLinejoin="round"  
-                    strokeWidth="2"  
-                    d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"  
-                  />  
-                </svg>  
+              <button className={styles.button} type="button"
+               onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
+                <span className={styles.emoji}>😊</span>
               </button>  
+              {showEmojiPicker && (
+              <div className={styles.emojiPicker}>
+                <Picker onEmojiClick={handleEmojiClick} />
+              </div>
+            )}
               <button type="submit">
                 <img src="send.png" alt="send" />
               </button>
