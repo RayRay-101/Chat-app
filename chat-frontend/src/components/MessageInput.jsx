@@ -77,7 +77,7 @@ function MessageInput() {
   };
   
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!selectedContact || !currentUser) {
       console.log("No contact selected or current user not set");
       return;
@@ -95,6 +95,15 @@ function MessageInput() {
     socket.emit('sendMessage', message);
     setInputValue('');
     socket.emit('typing', { sender: currentUser.name, typing: false });
+
+    try {
+      await axios.patch(`http://localhost:5000/api/contacts/${selectedContact.name}`, {
+        lastMessage: message.content,
+        lastMessageTime: message.timestamp,
+      });
+    } catch (error) {
+      console.error('Error updating contact:', error);
+    }
   };
 
   const handleInputChange = (e) => {

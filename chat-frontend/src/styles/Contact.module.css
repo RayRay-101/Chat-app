@@ -92,7 +92,7 @@
 .list ul li {
   display: flex;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: center; 
   list-style-type: none;
   width: 100%;
   color: white;
@@ -103,6 +103,7 @@
   cursor: pointer;
   transition: background-color 0.3s;
   position: relative;
+  border-bottom: 0.1px solid rgba(56, 53, 53, 0.8);
   }
   .list ul li:hover {
     cursor: pointer;
@@ -115,24 +116,35 @@
     border-radius: 50%;
     margin-right: 20px;
     position: relative;
+    border-bottom: 0.1px solid white;
   }
-  .list ul li .name {
+ 
+  
+  /* .list ul li .name {
     flex-grow: 1; 
    white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin-bottom: 2px;
-  }
+  } */
 
-  .list ul li .lastMessage {
-    font-size: 12px; 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    flex-grow: 3; 
-    color: #cfcfcf;
-    
+  .list ul li .contactInfo {
+    display: flex;
+    flex-direction: column; /* Stacks the name and last message vertically */
   }
+  
+  .list ul li .name {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .list ul li .lastMessage {
+    font-size: 12px; /* Slightly smaller than the name */
+    color: #ccc; /* Lighter color for the last message */
+    margin-top: 2px; /* Space between the name and the last message */
+  }
+  
 
   .list ul li .lastMessageTime {
     flex-grow: 1; 

@@ -39,7 +39,9 @@ function Profile(){
             </div>
         </div>
         <div className={styles.profile__card__body}>
-               <p>Phone and status</p>
+            <div className={styles.profile__card__body__top}>
+                <p>Phone and status</p>
+            </div>
             <div className={styles.profile__card__info__phone__number}>
                 <p>{selectedProfile.phoneNumber}</p>
             </div>
