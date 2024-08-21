@@ -22,16 +22,17 @@ exports.createMessage = async (req, res) => {
     const newMessage = new Message(req.body);
     await newMessage.save();
 
-    // Update the last message and time in the Contact schema
-    await Contact.updateOne(
-      { _id: req.body.sender },
-      { lastMessage: req.body.content, lastMessageTime: new Date() }
-    );
-
-    await Contact.updateOne(
-      { _id: req.body.receiver },
-      { lastMessage: req.body.content, lastMessageTime: new Date() }
-    );
+    // Update the last message and time for both sender and receiver
+    await Promise.all([
+      Contact.updateOne(
+        { name: req.body.sender }, 
+        { lastMessage: req.body.content, lastMessageTime: new Date().toISOString() }
+      ),
+      Contact.updateOne(
+        { name: req.body.receiver }, 
+        { lastMessage: req.body.content, lastMessageTime: new Date().toISOString() }
+      ),
+    ]);
 
     res.status(201).json(newMessage);
   } catch (error) {

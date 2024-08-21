@@ -39,7 +39,12 @@ io.on('connection', (socket) => {
       const message = new Message(messageData);
       await message.save();
 
-
+      // Update the contact with the latest message
+    await Contact.findByIdAndUpdate(message.receiver, {
+      lastMessage: message.content,
+      lastMessageTime: message.timestamp,
+    });
+    
       // Emit the message to the sender
       socket.emit('receivemessage', message);
       
