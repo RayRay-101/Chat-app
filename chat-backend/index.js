@@ -5,6 +5,8 @@ const cors = require('cors');
 const path = require('path');
 const connectDB = require('./config/db');
 const Message = require('./models/Message');
+const Contact = require('./models/Contact');
+
 
 const app = express();
 const server = http.createServer(app);
@@ -37,6 +39,12 @@ io.on('connection', (socket) => {
       const message = new Message(messageData);
       await message.save();
 
+      // Update the contact with the latest message
+    await Contact.findByIdAndUpdate(message.receiver, {
+      lastMessage: message.content,
+      lastMessageTime: message.timestamp,
+    });
+    
       // Emit the message to the sender
       socket.emit('receivemessage', message);
       

@@ -7,7 +7,9 @@ import axios from 'axios';
 import AddContactModal from './AddContactModal';
 import DeleteContactModal from './DeleteContactModal';
 
+
 function ContactList() {
+  const [searchQuery, setSearchQuery] = useState('');
   const [contacts, setContacts] = useState([]);
   const [showAddContact, setShowAddContact] = useState(false);
   const [showDeleteContact, setShowDeleteContact] = useState(false);
@@ -55,10 +57,21 @@ function ContactList() {
     }
   }
 
+  const formatTime = (time) => {
+    return time ? new Date(time).toLocaleString() : '';
+  }
+
+  const filteredContacts = contacts.filter(contact => 
+    contact.name.toLowerCase().startsWith(searchQuery.toLowerCase())
+  );
+  
+
   return (
     <div className={styles.contact__list}>
       <div className={styles.contact__search}>
-        <input type="text" placeholder='Search' className={styles.search__input} />
+        <input type="text" placeholder='Search' className={styles.search__input}
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)} />
         <span className={styles.search__icon}>
           <img src="https://img.icons8.com/ios-filled/50/FFFFFF/search.png" alt="Search Icon" />
         </span>
@@ -80,7 +93,7 @@ function ContactList() {
           />
         )}
         <ul>
-          {contacts.map((contact) => (
+          {filteredContacts.map((contact) => (
             <li 
               key={contact._id}
               onClick={() => handleContactClick(contact)}
@@ -88,7 +101,8 @@ function ContactList() {
             >
               <img src={`http://localhost:5000${contact.picture}`} alt="Profile" className={styles.profilePicture} />
               <span className={styles.name}>{contact.name}</span>
-              <span className={styles.lastMessage}>{contact.lastMessage}</span>
+              <span className={styles.lastMessage}>{contact.lastMessage|| ''}</span>
+              <span className={styles.lastMessageTime}>{formatTime(contact.lastMessageTime)}</span>
 
               <span onClick={(e) => { 
                   e.stopPropagation(); // Prevent triggering handleContactClick

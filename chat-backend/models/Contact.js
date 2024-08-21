@@ -13,6 +13,10 @@ const ContactSchema = new mongoose.Schema({
     type: String,
     
   },
+  lastMessage: {
+    type: String,
+  },
+  lastMessageTime: Date,
 });
 
 module.exports = mongoose.model('Contact', ContactSchema);

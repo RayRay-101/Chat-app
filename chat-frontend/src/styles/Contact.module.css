@@ -125,12 +125,20 @@
   }
 
   .list ul li .lastMessage {
-    display: block;
-    color: gray; 
     font-size: 12px; 
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    flex-grow: 3; 
+    color: #cfcfcf;
+    
+  }
+
+  .list ul li .lastMessageTime {
+    flex-grow: 1; 
+  font-size: 12px;
+  color: #ddd;
+  text-align: right; 
   }
 
 .list ul li .ellipses {

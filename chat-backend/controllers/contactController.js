@@ -1,4 +1,5 @@
 const Contact = require('../models/Contact');
+const Message = require('../models/Message');
 
 
 // GET all contacts
