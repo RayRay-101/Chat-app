@@ -1,6 +1,6 @@
 .profile__card{
     width: 15%;
-    background-color: whitesmoke;
+    background-color: white;
 }
 .profile__card__bar{
     width: 100%;
@@ -16,6 +16,7 @@
     height: 25px;
     width: 25px;
     margin-left: 5px;
+    
 }
 .profile__card__header{
     height: 30%;
@@ -37,13 +38,16 @@
 .profile__card__name h5{
     margin-top: -10px;
 }
-.profile__card__avator, img{
+.profile__card .profile{
+    display: block;
     height: 100px;
     width: 100px;
     border-radius: 50%;
     object-fit: cover;
     margin-right: 10px;
     margin-top: 10px;
+    border: 3px solid teal;
+    padding: 4px;
 }
 .profile__card__body{
     display: flex;
@@ -53,4 +57,16 @@
     padding: 10px;
     font-family: Arial, Helvetica, sans-serif;
 
+}
+.profile__card__body .profile__card__body__top {
+    width: 100%;
+    border-bottom: 1px solid #d3d2d2;
+}
+.profile__card__info__phone__number {
+    width: 100%;
+    border-bottom: 1px solid #d3d2d2;
+}
+.profile__card__info__status {
+    width: 100%;
+    border-bottom: 1px solid #d3d2d2;
 }

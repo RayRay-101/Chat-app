@@ -30,7 +30,7 @@ function Profile(){
         </div>
         <div className={styles.profile__card__header}>
             <div className={styles.profile__card__avatar}>
-            <img src={`http://localhost:5000${selectedProfile.picture}`} alt="Profile" className={styles.profilePicture} />  
+            <img src={`http://localhost:5000${selectedProfile.picture}`} alt="Profile" className={styles.profile} />  
             </div>
             <div className={styles.profile__card__name}>
                 <h3>{selectedProfile.name}</h3>
@@ -39,7 +39,9 @@ function Profile(){
             </div>
         </div>
         <div className={styles.profile__card__body}>
-               <p>Phone and status</p>
+            <div className={styles.profile__card__body__top}>
+                <p>Phone and status</p>
+            </div>
             <div className={styles.profile__card__info__phone__number}>
                 <p>{selectedProfile.phoneNumber}</p>
             </div>
