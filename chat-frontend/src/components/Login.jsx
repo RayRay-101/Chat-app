@@ -21,7 +21,7 @@ function Login () {
       const formData = new FormData();
       formData.append('name', username);
       formData.append('phone', phone);
-      formData.append('picture', profilePicture);
+      // formData.append('picture', profilePicture);
   
       try {
         const response = await axios.post('http://localhost:5000/api/users/register', formData, {
@@ -89,7 +89,6 @@ function Login () {
             />
           <button 
             type='submit'
-            onClick={handleLogin}
             className={styles.loginButton}>Enter</button>
           </form>
         </div>

@@ -72,9 +72,12 @@ function ContactList() {
     }
   }
 
-  const formatTime = (time) => {
-    return time ? new Date(time).toLocaleString() : '';
-  }
+
+  const formatTime = (isoString) => {
+    const date = new Date(isoString);
+    return isoString ? date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) : '';
+  };
+
 
   const filteredContacts = contacts.filter(contact => 
     contact.name.toLowerCase().startsWith(searchQuery.toLowerCase())
@@ -114,24 +117,27 @@ function ContactList() {
               onClick={() => handleContactClick(contact)}
               style={{ cursor: 'pointer', fontWeight: selectedContact?._id === contact._id ? 'bold' : 'normal' }}
             >
-              <img src={`http://localhost:5000${contact.picture}`} alt="Profile" className={styles.profilePicture} />
+              <img src={`http://localhost:5000/uploads${contact.picture}`} alt="Profile" className={styles.profilePicture} />
               
               <div className={styles.contactInfo}>
-        <span className={styles.name}>{contact.name}</span>
-        <span className={styles.lastMessage}>{contact.lastMessage || ''}</span>
-      </div>
-      <span className={styles.lastMessageTime}>{formatTime(contact.lastMessageTime)}</span>
-
-              <span onClick={(e) => { 
-                  e.stopPropagation(); // Prevent triggering handleContactClick
-                  setContactToDelete(contact); 
-                  setShowDeleteContact(true); 
-                }}>
-                <img
-                   src="https://img.icons8.com/material-outlined/24/FFFFFF/more.png" alt="more"
-                  className={styles.ellipses}
-                />
-              </span>
+                <span className={styles.name}>{contact.name}</span>
+                <span className={styles.lastMessage}>{contact.lastMessage || ''}</span>
+              </div>
+              <div className={styles.contactDetails}>
+                <span onClick={(e) => { 
+                    e.stopPropagation(); // Prevent triggering handleContactClick
+                    setContactToDelete(contact); 
+                    setShowDeleteContact(true); 
+                  }}>
+                  <img
+                    src="https://img.icons8.com/material-outlined/24/FFFFFF/more.png" alt="more"
+                    className={styles.ellipses}
+                  />
+                </span>
+                <span className={styles.lastMessageTime}>
+                  {formatTime(contact.lastMessageTime)}
+                </span>
+              </div>
             </li>
           ))}
         </ul>
