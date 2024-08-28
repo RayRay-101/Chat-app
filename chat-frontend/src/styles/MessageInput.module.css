@@ -23,6 +23,7 @@
     list-style-type: none;
     display: flex;
     padding: 5px;
+    align-items: center;
   }
   .typing-indicator {
     color: grey;
@@ -33,6 +34,8 @@
     background-color: white; 
     color: black;
   }
+  
+  
   .received .messageHeader {
     margin-left: -45px;
   }
@@ -45,12 +48,12 @@
   .messageContent {
     background-color: lightseagreen;
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     width: fit-content;
     height: fit-content;
       max-width: 250px;
       max-height: 400px;
-      margin: px ;
+      margin-top: -15px ;
       padding: 15px ;
       flex-grow: 1;
       word-wrap: break-word;
@@ -63,7 +66,8 @@
   content: "";
   position: absolute;
   left: -7px; 
-    top: 10px;
+    top: 50%;
+    transform: translateY(-50%);
   width: 0;
   height: 0;
   border-top: 8px solid transparent;
@@ -75,13 +79,14 @@
 .sent .messageContent::after {
   content: "";
   position: absolute;
-  right: -7px; /* Positioning the tail on the right for sent messages */
-  top: 10px;
+  right: -7px; 
+  top: 50%;
   width: 0;
+  transform: translateY(-50%);
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-left: 8px solid lightseagreen; /* Match this color to the background-color of the message */
+  border-left: 8px solid lightseagreen; 
 }
 
 
@@ -94,10 +99,10 @@
 }
 
 .profilePicture {
-  height: 33px;
-  width: 33px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
-  margin: 10px;
+  margin: 15px;
 }
 
 .messageTime {
