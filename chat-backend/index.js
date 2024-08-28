@@ -17,9 +17,13 @@ const io = new Server(server, {
   }
 });
 
-connectDB();
+connectDB()
+
+
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(cors());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

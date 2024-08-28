@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const ContactSchema = new mongoose.Schema({
+  
   name: {
     type: String,
     required: true,
@@ -10,8 +11,8 @@ const ContactSchema = new mongoose.Schema({
     required: true,
   },
   picture: {
-    type: String,
-    
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'uploads.files',
   },
   lastMessage: {
     type: String,

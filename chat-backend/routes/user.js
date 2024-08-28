@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const upload = require('../config/multerConfig');
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = require('../config/upload');
 const userController = require('../controllers/userController');
 
 // Register a new user with file upload
@@ -20,5 +22,8 @@ router.patch('/:id', userController.getUserById, userController.updateUser);
 
 // Delete a user
 router.delete('/:id', userController.getUserById, userController.deleteUser);
+
+// Add the route to retrieve the user's image
+router.get('/images/:id', userController.getUserImage);
 
 module.exports = router;

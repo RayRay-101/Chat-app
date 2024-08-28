@@ -17,11 +17,13 @@ function Login () {
   const handleLogin = async (e) => {
     e.preventDefault()
     console.log('Logging in:', username);
-    if (username.trim()) {
+    if (username.trim() && phone.trim()) {
       const formData = new FormData();
       formData.append('name', username);
       formData.append('phone', phone);
-      // formData.append('picture', profilePicture);
+      if (profilePicture) {
+        formData.append('picture', profilePicture);
+      }
   
       try {
         const response = await axios.post('http://localhost:5000/api/users/register', formData, {
@@ -53,7 +55,7 @@ function Login () {
           <p>Name: {currentUser.name}</p>
           {currentUser.picture && (
             <img
-              src={currentUser.picture}
+              src={`http://localhost:5000/api/users/images/${currentUser._id}`}
               alt="Profile"
               className={styles.profilePicture}
             />
@@ -64,7 +66,8 @@ function Login () {
       ) : (
         <div className={styles.loginBox}>
           <p>No user logged in.</p>
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleLogin} 
+          encType="multipart/form-data">
             <input 
             type="text"
             placeholder='Enter your name'

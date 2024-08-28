@@ -47,7 +47,10 @@ function ContactList() {
   }, [currentUser]);
 
   const handleContactClick = (contact) => {
-    dispatch(selectContact(contact));
+    dispatch(selectContact({
+      _id: contact._id,
+      name: contact.name,
+    }));
     dispatch(selectProfile(contact));
   };
 
@@ -117,7 +120,10 @@ function ContactList() {
               onClick={() => handleContactClick(contact)}
               style={{ cursor: 'pointer', fontWeight: selectedContact?._id === contact._id ? 'bold' : 'normal' }}
             >
-              <img src={`http://localhost:5000/uploads${contact.picture}`} alt="Profile" className={styles.profilePicture} />
+              <img src={`http://localhost:5000/api/contacts/images/${contact.picture}`} alt="Profile" className={styles.profilePicture} 
+              onError={(e) => {
+                e.target.src = '.'
+              }}/>
               
               <div className={styles.contactInfo}>
                 <span className={styles.name}>{contact.name}</span>

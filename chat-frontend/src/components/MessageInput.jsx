@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { addMessage, setMessages } from '../app/features/chat/chatSlice';
@@ -98,10 +100,15 @@ function MessageInput() {
     socket.emit('typing', { sender: currentUser.name, typing: false });
 
     try {
+      
       await axios.patch(`http://localhost:5000/api/contacts/${selectedContact._id}`, {
         lastMessage: message.content,
         lastMessageTime: message.timestamp,
       });
+      
+      
+      console.log('Selected Contact ID:', selectedContact._id);
+
     } catch (error) {
       console.error('Error updating contact:', error);
     }
