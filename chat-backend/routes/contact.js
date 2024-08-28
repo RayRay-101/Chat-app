@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const contactController = require('../controllers/contactController');
-const upload = require('../config/multerConfig')
+const upload = require('../config/upload');
 
 //GET all contacts
 router.get('/', contactController.getAllContacts);
+
+// route to retrieve the image
+router.get('/images/:id', contactController.getContactImage);
 
 // GET a single contact
 router.get('/:id', contactController.getContactMiddleware, contactController.getContactById);
