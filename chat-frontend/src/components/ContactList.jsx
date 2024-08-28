@@ -120,10 +120,7 @@ function ContactList() {
               onClick={() => handleContactClick(contact)}
               style={{ cursor: 'pointer', fontWeight: selectedContact?._id === contact._id ? 'bold' : 'normal' }}
             >
-              <img src={`http://localhost:5000/api/contacts/images/${contact.picture}`} alt="Profile" className={styles.profilePicture} 
-              onError={(e) => {
-                e.target.src = '.'
-              }}/>
+              <img src={`http://localhost:5000/api/contacts/images/${contact.picture}`} alt="Profile" className={styles.profilePicture} />
               
               <div className={styles.contactInfo}>
                 <span className={styles.name}>{contact.name}</span>

@@ -46,7 +46,7 @@ exports.registerUser = async (req, res) => {
       console.log('No file uploaded');
     }
 
-    const user = new User({ name, phoneNumber: phone, picture: pictureId });
+    const user = new User({ name: name, phoneNumber: phone, picture: pictureId });
     await user.save();
     res.status(201).json(user);
   } catch (error) {
@@ -159,13 +159,12 @@ exports.getUserImage = async (req, res) => {
     return res.status(400).json({ message: 'Invalid image ID' });
   }
 
-  if (!gridFSBucket) {
-    console.error('GridFSBucket is not initialized');
+  if (!global.gridFSBucket) {
     return res.status(500).json({ message: 'Server is not ready. Please try again later.' });
   }
 
   try {
-    const downloadStream = gridFSBucket.openDownloadStream(new mongoose.Types.ObjectId(id));
+    const downloadStream = global.gridFSBucket.openDownloadStream(new mongoose.Types.ObjectId(id));
 
     // Set the appropriate content type
     res.set('Content-Type', 'image/jpeg');

@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { addMessage, setMessages } from '../app/features/chat/chatSlice';
@@ -34,6 +32,7 @@ function MessageInput() {
         .catch(error => console.error('Error fetching messages:', error));
     }
   }, [selectedContact, currentUser, dispatch]);
+  
 
   useEffect(() => {
     socket.on('receivemessage', (message) => {
@@ -93,7 +92,8 @@ function MessageInput() {
       timestamp: new Date().toISOString(),
     };
 
-    console.log('Sending message:', message);
+    
+    // console.log('Sending message:', message);
     socket.emit('sendMessage', message);
     dispatch(addMessage(message));
     setInputValue('');
@@ -107,8 +107,6 @@ function MessageInput() {
       });
       
       
-      console.log('Selected Contact ID:', selectedContact._id);
-
     } catch (error) {
       console.error('Error updating contact:', error);
     }
@@ -123,6 +121,7 @@ function MessageInput() {
     e.preventDefault();
     if (inputValue.trim() !== "") {
       handleSendMessage();
+      
     }
   };
 
@@ -147,7 +146,8 @@ function MessageInput() {
         ) : (
           selectedContact && (
             <div className={styles.chat__profile}>
-              <img src={`http://localhost:5000${selectedContact.picture}`} alt="Profile" className={styles.profilePicture} />
+              <img src={`http://localhost:5000/api/contacts/images/${selectedContact.picture}`} alt="Profile" className={styles.profilePicture} 
+                /> 
               <p>{selectedContact.name}</p>
             </div>
           )
@@ -186,9 +186,10 @@ function MessageInput() {
                         <div className={styles.messageHeader}>
                           {currentUser.picture && (
                             <img
-                              src={`http://localhost:5000${currentUser.picture}`}
+                              src={`http://localhost:5000/api/users/images/${currentUser.picture}`}
                               alt="Profile"
                               className={styles.profilePicture}
+                              
                             />
                           )}
                           <span className={styles.messageTime}>{formatTime(msg.timestamp)}</span>
@@ -197,7 +198,10 @@ function MessageInput() {
                     ) : (
                       <>
                         <div className={styles.messageHeader}>
-                          <img src={`http://localhost:5000${selectedContact.picture}`} alt="Profile" className={styles.profilePicture} />
+                      {selectedContact.picture && (
+                        <img src={`http://localhost:5000/api/contacts/images/${selectedContact.picture}`} alt="Profile" className={styles.profilePicture} 
+                        />
+                        )}
                           <span className={styles.messageTime}>{formatTime(msg.timestamp)}</span>
                         </div>
                         <div className={styles.messageContent}>

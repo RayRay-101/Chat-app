@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
-const storage = multer.memoryStorage();
 const upload = require('../config/upload');
 const userController = require('../controllers/userController');
 
 // Register a new user with file upload
 router.post('/register', upload.single('picture'), userController.registerUser);
+
+// Add the route to retrieve the user's image
+router.get('/images/:id', userController.getUserImage);
 
 // Get all users
 router.get('/', userController.getAllUsers);
@@ -23,7 +24,5 @@ router.patch('/:id', userController.getUserById, userController.updateUser);
 // Delete a user
 router.delete('/:id', userController.getUserById, userController.deleteUser);
 
-// Add the route to retrieve the user's image
-router.get('/images/:id', userController.getUserImage);
 
 module.exports = router;

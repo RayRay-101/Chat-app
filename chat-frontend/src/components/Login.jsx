@@ -55,7 +55,7 @@ function Login () {
           <p>Name: {currentUser.name}</p>
           {currentUser.picture && (
             <img
-              src={`http://localhost:5000/api/users/images/${currentUser._id}`}
+              src={`http://localhost:5000/api/users/images/${currentUser.picture}`}
               alt="Profile"
               className={styles.profilePicture}
             />
