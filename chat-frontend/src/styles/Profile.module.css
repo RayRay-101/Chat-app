@@ -1,6 +1,8 @@
 .profile__card{
     width: 15%;
     background-color: white;
+    font-family: 'Roboto', sans-serif;
+
 }
 .profile__card__bar{
     width: 100%;
@@ -10,10 +12,7 @@
     justify-content: flex-start;
     border-bottom: 1px solid #ccc;
     margin-left: 3px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-.profile__card__bar{
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Roboto', sans-serif;
 }
 .profile__card__bar .profilePicture {
     border-radius: 50%;
@@ -23,14 +22,21 @@
     margin-left: 5px;
     
 }
+.profile__card__bar p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .profile__card__header{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
     height: 30%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    font-family: Arial, Helvetica, sans-serif;
     border-bottom: 1px solid #d3d2d2;
 }
 .profile__card__name{
@@ -38,10 +44,24 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.profile__card__name h3 {
+    margin-bottom: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 .profile__card__name h5{
-    margin-top: -10px;
+    margin-top: -5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
 }
 .profile__card .profile{
     display: block;
@@ -53,6 +73,8 @@
     margin-top: 10px;
     border: 3px solid teal;
     padding: 2px;
+    margin-top: 30px;
+
 }
 .profile__card__body{
     display: flex;
@@ -60,7 +82,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     padding: 10px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
 
 }
 .profile__card__body .profile__card__body__top {

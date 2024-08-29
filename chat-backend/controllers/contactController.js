@@ -85,7 +85,7 @@ exports.updateContact = async (req, res) => {
   }
 
   try {
-    const updatedContact = await Contact.findOneAndUpdate(id, updates, { new: true });
+    const updatedContact = await Contact.findByIdAndUpdate(id, updates, { new: true });
     res.json(updatedContact);
   } catch (err) {
     res.status(400).json({ message: err.message });
