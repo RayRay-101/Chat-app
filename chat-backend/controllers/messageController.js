@@ -25,13 +25,15 @@ exports.createMessage = async (req, res) => {
 
     // Update the last message and time for both sender and receiver
     await Promise.all([
-      Contact.updateOne(
+      Contact.findOneAndUpdate(
         { name: req.body.sender }, 
-        { lastMessage: req.body.content, lastMessageTime: new Date().toISOString() }
+        { lastMessage: req.body.content, lastMessageTime: new Date().toISOString() },
+        { new: true }
       ),
-      Contact.updateOne(
+      Contact.findOneAndUpdate(
         { name: req.body.receiver }, 
-        { lastMessage: req.body.content, lastMessageTime: new Date().toISOString() }
+        { lastMessage: req.body.content, lastMessageTime: new Date().toISOString() },
+        { new: true }
       ),
     ]);
 

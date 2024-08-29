@@ -37,6 +37,8 @@ function MessageInput() {
 
   useEffect(() => {
     socket.on('receivemessage', (message) => {
+      console.log('Received message:', message);
+
       dispatch(addMessage(message));
       scrollToBottom();
     });
@@ -90,6 +92,8 @@ function MessageInput() {
       content: inputValue,
       sender: currentUser.name,
       receiver: selectedContact.name,
+      receiverSocketId: selectedContact.socketId,  // Add receiver's socket ID
+
       timestamp: new Date().toISOString(),
     };
 
@@ -238,7 +242,7 @@ function MessageInput() {
             </form>
           </div>
         ) : (
-          <p>Please select a Chat</p>
+          <p>Please select or add a Chat</p>
         )}
       </div>
     </>

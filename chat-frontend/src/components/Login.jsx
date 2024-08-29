@@ -89,6 +89,7 @@ function Login () {
               accept="image/*"
               onChange={(e) => setProfilePicture(e.target.files[0])}
               className={styles.loginInput}
+              required
             />
           <button 
             type='submit'
