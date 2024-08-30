@@ -36,35 +36,35 @@ const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 io.on('connection', (socket) => {
-  console.log('New user connected');
-
   socket.on('sendMessage', async (messageData) => {
     try {
       const message = new Message(messageData);
       await message.save();
 
-      // Update the contact with the latest message
-    await Contact.findByIdAndUpdate(message.receiver, {
-      lastMessage: message.content,
-      lastMessageTime: message.timestamp,
-    });
-    
-      // Emit the message to the sender
-      socket.emit('receivemessage', message);
-      // socket.to(message.receiverSocketId).emit('receivemessage', message);  // To the receiver
+      // Find the contact document by name to get the ObjectId
+      const contact = await Contact.findOne({ name: messageData.receiver });
 
-      // Broadcast the message to all other clients
+      if (contact) {
+        await Contact.findByIdAndUpdate(contact._id, {
+          lastMessage: message.content,
+          lastMessageTime: message.timestamp,
+        });
+      }
+
+      socket.emit('receivemessage', message);
       socket.broadcast.emit('receivemessage', message);
     } catch (error) {
       console.error('Error saving message:', error);
     }
   });
-
+  
+  
   socket.on('typing', (data) => {
     socket.broadcast.emit('typing', data);
   });
-
+  
   socket.on('disconnect', () => {
     console.log('User disconnected');
   });
 });
+

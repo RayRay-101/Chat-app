@@ -99,7 +99,7 @@ function MessageInput() {
     
     // console.log('Sending message:', message);
     socket.emit('sendMessage', message);
-    dispatch(addMessage(message));
+    // dispatch(addMessage(message));
     setInputValue('');
     socket.emit('typing', { sender: currentUser.name, typing: false });
 

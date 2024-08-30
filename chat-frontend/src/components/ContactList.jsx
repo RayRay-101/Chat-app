@@ -21,7 +21,7 @@ function ContactList() {
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/contacts');
+        const { data } = await axios.get(`http://localhost:5000/api/contacts?user=${currentUser._id}`);
         const updatedContacts = await Promise.all(
           data.map(async (contact) => {
             const messageResponse = await axios.get(

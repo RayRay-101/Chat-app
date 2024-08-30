@@ -11,7 +11,8 @@ const gridFSBucket = global.gridFSBucket;
 // GET all contacts
 exports.getAllContacts = async (req, res) => {
   try {
-    const contacts = await Contact.find();
+    const userId = req.query.userId;
+    const contacts = await Contact.find({ user: user._id });
     res.json(contacts);
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -26,7 +27,7 @@ exports.getContactById = (req, res) => {
 // POST/create a new contact with file upload
 exports.createContact = async (req, res) => {
   try {
-    const { name, phoneNumber } = req.body;
+    const { name, phoneNumber, userId  } = req.body;
     let pictureId = null;
 
     // Handle picture upload using GridFS
@@ -55,7 +56,7 @@ exports.createContact = async (req, res) => {
     }
 
     const newContact = await Contact.create({ 
-      name, phoneNumber, picture: pictureId });
+      name, phoneNumber, picture: pictureId, user: userId });
     res.status(201).json(newContact);
   } catch (error) {
     console.error('Error adding contact:', error);
@@ -99,8 +100,8 @@ exports.deleteContact = async (req, res) => {
     if (!contact) {
       return res.status(404).json({ message: 'Contact not found' });
     }
-    if (contact.picture) {
-      await gridFSBucket.delete(contact.picture);
+    if (contact.picture && global.gridFSBucket) {
+      await global.gridFSBucket.delete(new mongoose.Types.ObjectId(contact.picture));
     }
     
     res.status(200).json({ message: 'Contact deleted successfully' });

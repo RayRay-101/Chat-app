@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styles from '../styles/AddContact.module.css';
+import { useSelector } from 'react-redux';
+
 
 function AddContactModal({ onClose, onAdd }) {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [profilePicture, setProfilePicture] = useState(null);
+  const currentUser = useSelector((state) => state.user.currentUser)
+
 
   const handleFileChange = (e) => {
     setProfilePicture(e.target.files[0]);
@@ -17,6 +21,7 @@ function AddContactModal({ onClose, onAdd }) {
       const formData = new FormData();
       formData.append('name', name);
       formData.append('phoneNumber', phoneNumber);
+      formData.append('userId', currentUser._id);
       if (profilePicture) {
         formData.append('profilePicture', profilePicture);
       }

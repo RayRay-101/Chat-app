@@ -14,10 +14,12 @@ const ContactSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'uploads.files',
   },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   lastMessage: {
     type: String,
   },
   lastMessageTime: Date,
+
 });
 
 module.exports = mongoose.model('Contact', ContactSchema);
