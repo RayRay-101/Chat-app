@@ -23,7 +23,6 @@
     
 }
 .profile__card__bar p{
-    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }

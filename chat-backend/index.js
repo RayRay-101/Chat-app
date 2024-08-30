@@ -51,10 +51,10 @@ io.on('connection', (socket) => {
     
       // Emit the message to the sender
       socket.emit('receivemessage', message);
-      io.to(message.receiverSocketId).emit('receivemessage', message);  // To the receiver
+      // socket.to(message.receiverSocketId).emit('receivemessage', message);  // To the receiver
 
       // Broadcast the message to all other clients
-      // socket.broadcast.emit('receivemessage', message);
+      socket.broadcast.emit('receivemessage', message);
     } catch (error) {
       console.error('Error saving message:', error);
     }

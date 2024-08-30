@@ -38,7 +38,6 @@ function MessageInput() {
   useEffect(() => {
     socket.on('receivemessage', (message) => {
       console.log('Received message:', message);
-
       dispatch(addMessage(message));
       scrollToBottom();
     });
