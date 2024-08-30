@@ -47,11 +47,12 @@ io.on('connection', (socket) => {
     await Contact.findByIdAndUpdate(message.receiver, {
       lastMessage: message.content,
       lastMessageTime: message.timestamp,
-    });
+    }, { new: true });
     
       // Emit the message to the sender
       socket.emit('receivemessage', message);
       // socket.to(message.receiverSocketId).emit('receivemessage', message);  // To the receiver
+      // socket.to(message.receiver).emit('receivemessage', message);
 
       // Broadcast the message to all other clients
       socket.broadcast.emit('receivemessage', message);

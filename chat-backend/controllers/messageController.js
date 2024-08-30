@@ -23,6 +23,11 @@ exports.createMessage = async (req, res) => {
     const newMessage = new Message(req.body);
     await newMessage.save();
 
+    // (In createMessage route)
+if (req.body.sender !== req.body.receiver) {
+  socket.to(req.body.sender).emit('receivemessage', message);
+}
+
     // Update the last message and time for both sender and receiver
     await Promise.all([
       Contact.findOneAndUpdate(
