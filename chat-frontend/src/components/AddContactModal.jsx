@@ -3,13 +3,14 @@ import axios from 'axios';
 import styles from '../styles/AddContact.module.css';
 import { useSelector } from 'react-redux';
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
 
 function AddContactModal({ onClose, onAdd }) {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [profilePicture, setProfilePicture] = useState(null);
   const currentUser = useSelector((state) => state.user.currentUser)
-
+  
 
   const handleFileChange = (e) => {
     setProfilePicture(e.target.files[0]);
@@ -26,7 +27,7 @@ function AddContactModal({ onClose, onAdd }) {
         formData.append('profilePicture', profilePicture);
       }
 
-      const response = await axios.post('http://localhost:5000/api/contacts', formData, {
+      const response = await axios.post(`${backendUrl}/api/contacts`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

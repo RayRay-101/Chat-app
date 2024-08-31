@@ -7,7 +7,9 @@ import Picker from 'emoji-picker-react';
 
 import styles from '../styles/MessageInput.module.css';
 
-const socket = io('http://localhost:5000');
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+
+const socket = io(`${backendUrl}`);
 
 function MessageInput() {
   const [inputValue, setInputValue] = useState("");
@@ -25,7 +27,7 @@ function MessageInput() {
 
   useEffect(() => {
     if (selectedContact && currentUser) {
-      axios.get(`http://localhost:5000/api/messages/${currentUser.name}/${selectedContact.name}`)
+      axios.get(`${backendUrl}/api/messages/${currentUser.name}/${selectedContact.name}`)
         .then(response => {
           const sortedMessages = response.data.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
           dispatch(setMessages(sortedMessages));
@@ -104,10 +106,16 @@ function MessageInput() {
     socket.emit('typing', { sender: currentUser.name, typing: false });
 
     try {
-      
-      await axios.patch(`http://localhost:5000/api/contacts/${selectedContact._id}`, {
-        lastMessage: message.content,
-        lastMessageTime: message.timestamp,
+      const response = await axios({
+        method: 'patch',
+        url: `${backendUrl}/api/contacts/${selectedContact._id}`,
+        data: {
+          lastMessage: message.content,
+          lastMessageTime: message.timestamp,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
       
       
@@ -152,7 +160,7 @@ function MessageInput() {
         ) : (
           selectedContact && (
             <div className={styles.chat__profile}>
-              <img src={`http://localhost:5000/api/contacts/images/${selectedProfile.picture}`} alt="Profile" className={styles.profilePicture} 
+              <img src={`${backendUrl}/api/contacts/images/${selectedProfile.picture}`} alt="Profile" className={styles.profilePicture} 
                 /> 
               <p>{selectedContact.name}</p>
             </div>
@@ -192,7 +200,7 @@ function MessageInput() {
                         <div className={styles.messageHeader}>
                           {currentUser.picture && (
                             <img
-                              src={`http://localhost:5000/api/users/images/${currentUser.picture}`}
+                              src={`${backendUrl}/api/users/images/${currentUser.picture}`}
                               alt="Profile"
                               className={styles.profilePicture}
                               
@@ -205,7 +213,7 @@ function MessageInput() {
                       <>
                         <div className={styles.messageHeader}>
                       
-                        <img src={`http://localhost:5000/api/contacts/images/${selectedProfile.picture}`} alt="Profile" className={styles.profilePicture} 
+                        <img src={`${backendUrl}/api/contacts/images/${selectedProfile.picture}`} alt="Profile" className={styles.profilePicture} 
                         />
                           <span className={styles.messageTime}>{formatTime(msg.timestamp)}</span>
                         </div>

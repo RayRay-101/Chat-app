@@ -7,6 +7,8 @@ import axios from 'axios';
 import AddContactModal from './AddContactModal';
 import DeleteContactModal from './DeleteContactModal';
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+
 
 function ContactList() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -21,11 +23,11 @@ function ContactList() {
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:5000/api/contacts?user=${currentUser._id}`);
+        const { data } = await axios.get(`${backendUrl}/api/contacts?user=${currentUser._id}`);
         const updatedContacts = await Promise.all(
           data.map(async (contact) => {
             const messageResponse = await axios.get(
-              `http://localhost:5000/api/messages/${currentUser.name}/${contact.name}`
+              `${backendUrl}/api/messages/${currentUser.name}/${contact.name}`
             );
             // Get the most recent message
           const sortedMessages = messageResponse.data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
@@ -39,7 +41,7 @@ function ContactList() {
       );
         setContacts(updatedContacts);
       } catch (error) {
-        console.error('Error fetching contacts:', error);
+        // console.error('Error fetching contacts:', error);
         setContacts([]);
       }
     };
@@ -61,7 +63,7 @@ function ContactList() {
   const handleDeleteContact = async () => {
     if (contactToDelete) {
       try {
-        const response = await axios.delete(`http://localhost:5000/api/contacts/${contactToDelete._id}`);
+        const response = await axios.delete(`${backendUrl}/api/contacts/${contactToDelete._id}`);
         if (response.status === 200) {
           setContacts((prevContacts) => prevContacts.filter((contact) => contact._id !== contactToDelete._id));
           setShowDeleteContact(false);
@@ -120,7 +122,7 @@ function ContactList() {
               onClick={() => handleContactClick(contact)}
               style={{ cursor: 'pointer', fontWeight: selectedContact?._id === contact._id ? 'bold' : 'normal' }}
             >
-              <img src={`http://localhost:5000/api/contacts/images/${contact.picture}`} alt="Profile" className={styles.profilePicture} />
+              <img src={`${backendUrl}/api/contacts/images/${contact.picture}`} alt="Profile" className={styles.profilePicture} />
               
               <div className={styles.contactInfo}>
                 <span className={styles.name}>{contact.name}</span>

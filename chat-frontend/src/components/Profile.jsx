@@ -2,6 +2,8 @@ import styles from '../styles/Profile.module.css'
 import { useSelector,useDispatch } from 'react-redux'
 import { clearProfile } from '../app/features/profile/profileSlice'
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+
 
 function Profile(){
     const currentUser = useSelector((state) => state.user.currentUser);
@@ -21,7 +23,7 @@ function Profile(){
         <div className={styles.profile__card__bar}>
         {currentUser.picture && (
                           <img
-                            src={`http://localhost:5000/api/users/images/${currentUser.picture}`}
+                            src={`${backendUrl}/api/users/images/${currentUser.picture}`}
                             alt="Profile"
                             className={styles.profilePicture}
                           />
@@ -30,7 +32,7 @@ function Profile(){
         </div>
         <div className={styles.profile__card__header}>
             <div className={styles.profile__card__avatar}>
-            <img src={`http://localhost:5000/api/contacts/images/${selectedProfile.picture}`} alt="Profile" className={styles.profile} />  
+            <img src={`${backendUrl}/api/contacts/images/${selectedProfile.picture}`} alt="Profile" className={styles.profile} />  
             </div>
             <div className={styles.profile__card__name}>
                 <h3>{selectedProfile.name}</h3>

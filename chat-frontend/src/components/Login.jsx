@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Login.module.css';
 import axios from 'axios';
 
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+
 function Login() {
   const [username, setUsername] = useState('');
   const [phone, setPhone] = useState('');
@@ -42,7 +45,7 @@ function Login() {
       }
 
       try {
-        const response = await axios.post('http://localhost:5000/api/users/register', formData, {
+        const response = await axios.post(`${backendUrl}/api/users/register`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -71,7 +74,7 @@ function Login() {
           <p>Name: {currentUser.name}</p>
           {currentUser.picture && (
             <img
-              src={`http://localhost:5000/api/users/images/${currentUser.picture}`}
+              src={`${backendUrl}/api/users/images/${currentUser.picture}`}
               alt="Profile"
               className={styles.profilePicture}
             />
