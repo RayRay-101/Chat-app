@@ -175,7 +175,10 @@
     align-items: center;
     justify-content: center;
   }
-  
+  .chat__status .chat__profile .profilePicture{
+    height: 35px;
+    width: 35px;
+  }
   .chat__status span img {
     height: 22px;
     width: 22px;
