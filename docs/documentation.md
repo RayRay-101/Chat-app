@@ -7,7 +7,6 @@ Features
 •	Contact Management: Update and manage contacts, with the latest message displayed.
 •	Image Handling: Upload and retrieve images using MongoDB GridFS.
 •	Emoji Picker: Integrated emoji picker for adding emojis to messages.
-•	Light/Dark Mode: Toggle between light and dark themes.
 •	Cross-Platform: Compatible with desktop, tablet, and mobile devices.
 Installation
 Prerequisites
