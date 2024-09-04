@@ -45,9 +45,11 @@ Install my-project with npm
 git clone https://github.com/RayRay-101/Chat-app.git
 
 # Install dependencies for the frontend
+```bash
 cd chat-frontend
 
 npm install
+```
 
 # Install dependencies for the backend
 ```bash
